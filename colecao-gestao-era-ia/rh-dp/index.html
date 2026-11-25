@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DP Público: Do Ingresso ao Desligamento | Coleção Gestão Pública na Era da IA</title>
+<meta name="description" content="O roteiro do Departamento Pessoal público, do ingresso ao desligamento: folha, eSocial, previdência e LRF em linguagem simples, com ou sem IA. 9 modelos editáveis e 88 comandos de IA.">
+<link rel="canonical" href="https://land.institutoformare.com.br/colecao-gestao-era-ia/rh-dp/">
+<meta property="og:type" content="product">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="DP Público: Do Ingresso ao Desligamento">
+<meta property="og:description" content="Folha, eSocial, previdência e LRF em linguagem simples, com ou sem IA. Roteiro passo a passo, 9 modelos editáveis e 88 comandos de IA.">
+<meta property="og:url" content="https://land.institutoformare.com.br/colecao-gestao-era-ia/rh-dp/">
+<meta property="og:image" content="https://land.institutoformare.com.br/colecao-gestao-era-ia/rh-dp/img/vol1.jpg">
+<meta name="theme-color" content="#090909">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/vol1.webp">
+
+<!-- META PIXEL: cole aqui o código base do Pixel (fbq init + PageView), se for usar. -->
+
+<style>
+:root{
+  --bg:#090909; --bg2:#111111; --surface:#171310; --line:#34302b;
+  --orange:#f56616; --orange-d:#d94d08; --gold:#e4af54;
+  --text:#f5f0e6; --muted:#c4c0ba; --dim:#8f8a83;
+  --serif:'Cormorant Garamond',Georgia,serif; --sans:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --wrap:1160px; --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
+section{padding:88px 0;position:relative}
+.eyebrow{display:block;color:var(--orange);font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;margin-bottom:16px}
+h1,h2,h3.serif{font-family:var(--serif);font-weight:500;line-height:1.08;letter-spacing:-.01em}
+h1{font-size:clamp(42px,7vw,76px)}
+h2{font-size:clamp(34px,5.2vw,56px);margin-bottom:22px}
+h1 em,h2 em,.quote em{font-style:italic;color:var(--orange)}
+.lead{color:var(--muted);font-size:clamp(17px,2vw,19px);max-width:620px}
+.center{text-align:center}.center .lead{margin-left:auto;margin-right:auto}
+.divider{border-top:1px solid var(--line)}
+
+/* botões */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:16px 30px;border-radius:8px;font-weight:600;font-size:17px;text-decoration:none;transition:transform .15s ease,background .2s ease,box-shadow .2s ease;cursor:pointer;border:0}
+.btn-primary{background:var(--orange);color:#140802;box-shadow:0 10px 30px -10px rgba(245,102,22,.65)}
+.btn-primary:hover{background:#ff7a2e;transform:translateY(-2px)}
+.btn-ghost{border:1px solid var(--text);color:var(--text);background:transparent}
+.btn-ghost:hover{border-color:var(--orange);color:var(--orange)}
+.btn .arr{transition:transform .2s}.btn:hover .arr{transform:translateX(4px)}
+.micro{color:var(--dim);font-size:14px;margin-top:14px}
+
+/* header */
+header.top{border-bottom:1px solid var(--line);background:rgba(9,9,9,.92);backdrop-filter:blur(8px);position:sticky;top:0;z-index:40}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.brand{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);line-height:1.35}
+.brand b{color:var(--text);font-weight:600;display:block;letter-spacing:.12em}
+header .btn{min-height:42px;padding:10px 18px;font-size:14px}
+
+/* hero */
+.hero{padding:56px 0 72px;overflow:hidden;background:
+  radial-gradient(60% 70% at 78% 45%,rgba(245,102,22,.28),transparent 62%),
+  radial-gradient(40% 40% at 10% 0%,rgba(228,175,84,.08),transparent 70%),var(--bg)}
+.hero .wrap{display:grid;grid-template-columns:1.08fr .92fr;gap:40px;align-items:center}
+.hero h1{margin-bottom:22px}
+.hero .lead{margin-bottom:26px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:30px}
+.chip{border:1px solid var(--line);background:rgba(23,19,16,.7);border-radius:999px;padding:8px 14px;font-size:14px;color:var(--muted)}
+.chip b{color:var(--orange);font-weight:600}
+.price-line{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
+.price-line .p{font-family:var(--serif);font-size:44px;font-weight:600;color:var(--text);line-height:1}
+.price-line .s{color:var(--dim);font-size:14px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.hero-img{position:relative}
+.hero-img::before{content:"";position:absolute;inset:12% 8%;background:radial-gradient(closest-side,rgba(245,102,22,.45),transparent);filter:blur(30px);z-index:0}
+.hero-img img{position:relative;z-index:1;border-radius:var(--r);animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* marquee */
+.marquee{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:14px 0}
+.marquee .track{display:flex;gap:44px;width:max-content;animation:scroll 32s linear infinite}
+.marquee span{font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:var(--text);white-space:nowrap}
+.marquee span.d{color:var(--orange)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* dores */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r);padding:28px 24px;box-shadow:0 0 0 1px rgba(255,255,255,.02),0 18px 40px -24px rgba(0,0,0,.8);transition:border-color .25s,transform .25s}
+.card:hover{border-color:rgba(245,102,22,.55);transform:translateY(-3px)}
+.card .ic{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:rgba(245,102,22,.12);color:var(--orange);margin-bottom:18px}
+.card .ic svg{width:24px;height:24px}
+.card h3{font-size:19px;font-weight:600;margin-bottom:8px;line-height:1.3}
+.card p{color:var(--muted);font-size:15.5px}
+.bookquote{margin:52px auto 0;max-width:860px;border-left:3px solid var(--orange);padding:6px 0 6px 24px}
+.bookquote p{font-family:var(--serif);font-style:italic;font-size:clamp(22px,3vw,30px);line-height:1.3}
+.bookquote small{display:block;color:var(--dim);font-size:13px;margin-top:10px;letter-spacing:.06em;text-transform:uppercase}
+
+/* virada */
+.turn{background:var(--bg2)}
+.turn .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.quote{font-family:var(--serif);font-size:clamp(34px,4.6vw,52px);line-height:1.1}
+.turn p{color:var(--muted);margin-bottom:16px}
+.turn p strong{color:var(--text);font-weight:600}
+.story{margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px;font-size:15.5px;color:var(--muted)}
+.story b{color:var(--gold);font-weight:600}
+
+/* metades */
+.halves{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:40px}
+.half{border:1px solid var(--line);border-radius:var(--r);padding:30px 26px;background:var(--bg2)}
+.half .tag{display:inline-block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-bottom:16px}
+.half.a .tag{background:rgba(245,240,230,.08);color:var(--text)}
+.half.b .tag{background:rgba(245,102,22,.14);color:var(--orange)}
+.half h3{font-size:21px;font-weight:600;margin-bottom:10px}
+.half p{color:var(--muted);font-size:15.5px}
+.rule{margin-top:26px;text-align:center;border:1px dashed rgba(245,102,22,.5);border-radius:var(--r);padding:22px}
+.rule .serif{font-family:var(--serif);font-size:clamp(24px,3.2vw,34px);font-style:italic}
+.rule small{display:block;color:var(--dim);font-size:14px;margin-top:6px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:52px;border-top:1px solid var(--line)}
+.step{padding:28px 24px 8px;border-right:1px solid var(--line);display:flex;gap:18px}
+.step:last-child{border-right:0}
+.step .n{font-family:var(--serif);font-style:italic;font-size:48px;color:var(--orange);line-height:.9}
+.step h4{font-size:17px;font-weight:600;margin-bottom:6px}
+.step p{color:var(--muted);font-size:15px}
+
+/* capítulos */
+.acc{max-width:900px;margin:40px auto 0}
+details{border:1px solid var(--line);border-radius:12px;background:var(--bg2);margin-bottom:10px;overflow:hidden}
+details[open]{border-color:rgba(245,102,22,.5)}
+summary{list-style:none;cursor:pointer;padding:18px 54px 18px 20px;position:relative;font-weight:600;font-size:16.5px;line-height:1.4}
+summary::-webkit-details-marker{display:none}
+summary .k{color:var(--orange);font-family:var(--serif);font-style:italic;font-size:20px;margin-right:10px;font-weight:600}
+summary::after{content:"+";position:absolute;right:20px;top:50%;transform:translateY(-50%);color:var(--orange);font-size:24px;font-weight:400;transition:transform .2s}
+details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+.acc-body{padding:0 20px 20px;color:var(--muted);font-size:15.5px}
+.acc-body p+p{margin-top:8px}
+.acc-body .err{color:var(--text)}
+.acc-body .err b{color:var(--orange)}
+
+/* kit */
+.kit{background:var(--bg2)}
+.kit-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;margin-top:40px}
+.box{border:1px solid var(--line);border-radius:var(--r);background:var(--bg);padding:28px 26px}
+.box h3{font-size:20px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.box h3 .big{font-family:var(--serif);font-style:italic;color:var(--orange);font-size:40px;line-height:1}
+.models{list-style:none;columns:2;column-gap:26px}
+.models li{break-inside:avoid;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--muted);display:flex;gap:10px}
+.models li b{color:var(--orange);font-weight:600;min-width:28px}
+.side .box+.box{margin-top:22px}
+.box p{color:var(--muted);font-size:15.5px}
+.ticks{list-style:none;margin-top:6px}
+.ticks li{padding:7px 0 7px 28px;position:relative;color:var(--muted);font-size:15.5px}
+.ticks li::before{content:"";position:absolute;left:0;top:13px;width:16px;height:9px;border-left:2px solid var(--orange);border-bottom:2px solid var(--orange);transform:rotate(-45deg)}
+
+/* para quem */
+.who{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+.who .card h3{font-size:18px}
+
+/* coleção */
+.trail{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.vol{border:1px solid var(--line);border-radius:var(--r);background:var(--bg2);overflow:hidden;display:flex;flex-direction:column}
+.vol.first{border-color:var(--orange);box-shadow:0 0 0 1px var(--orange),0 24px 60px -30px rgba(245,102,22,.7)}
+.vol .ph{background:radial-gradient(closest-side,rgba(245,102,22,.22),transparent),var(--bg);padding:18px 18px 0}
+.vol .ph img{max-width:260px;margin:0 auto}
+.vol .bd{padding:22px 22px 26px;flex:1}
+.vol .badge{display:inline-block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:5px 11px;border-radius:999px;margin-bottom:12px;background:rgba(245,240,230,.08);color:var(--muted)}
+.vol.first .badge{background:var(--orange);color:#140802;font-weight:600}
+.vol h3{font-size:19px;font-weight:600;line-height:1.3;margin-bottom:6px}
+.vol .theme{color:var(--gold);font-size:14px;margin-bottom:12px}
+.vol p{color:var(--muted);font-size:15px}
+.why{margin-top:34px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:26px}
+.why .n{font-family:var(--serif);font-style:italic;font-size:56px;color:var(--orange);line-height:.8}
+.why h3{font-size:20px;font-weight:600;margin-bottom:8px}
+.why p{color:var(--muted);font-size:15.5px}
+.why p+p{margin-top:8px}
+.why p strong{color:var(--text)}
+
+/* oferta */
+.offer{background:radial-gradient(50% 60% at 50% 30%,rgba(245,102,22,.18),transparent 70%),var(--bg)}
+.offer-card{max-width:980px;margin:40px auto 0;display:grid;grid-template-columns:.85fr 1.15fr;border:1px solid rgba(245,102,22,.6);border-radius:20px;background:var(--bg2);overflow:hidden;box-shadow:0 30px 80px -40px rgba(245,102,22,.6)}
+.offer-card .ph{background:radial-gradient(closest-side,rgba(245,102,22,.35),transparent),var(--bg);display:grid;place-items:center;padding:24px}
+.offer-card .bd{padding:34px 32px}
+.offer-card h3{font-family:var(--serif);font-size:32px;font-weight:600;line-height:1.1;margin-bottom:16px}
+.offer-card .price{margin:22px 0 6px;display:flex;align-items:baseline;gap:10px}
+.offer-card .price .p{font-family:var(--serif);font-size:62px;font-weight:600;line-height:1}
+.offer-card .price .s{color:var(--dim);font-size:15px}
+.offer-card .btn{width:100%;margin-top:14px}
+.secure{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;color:var(--dim);font-size:13.5px}
+.secure span::before{content:"• ";color:var(--orange)}
+.guarantee{max-width:980px;margin:22px auto 0;display:flex;gap:18px;align-items:center;border:1px solid var(--line);border-radius:var(--r);padding:20px 24px;background:var(--bg2)}
+.seal{flex:0 0 74px;width:74px;height:74px;border-radius:50%;border:2px solid var(--gold);display:grid;place-items:center;text-align:center;color:var(--gold);font-weight:700;line-height:1;font-size:26px}
+.seal small{display:block;font-size:10px;letter-spacing:.12em;font-weight:600;margin-top:2px}
+.guarantee p{color:var(--muted);font-size:15.5px}
+.guarantee p b{color:var(--text)}
+.upnote{max-width:980px;margin:16px auto 0;text-align:center;color:var(--muted);font-size:15px}
+.upnote b{color:var(--orange)}
+
+/* faq */
+.faq .acc summary{font-weight:500}
+
+/* final */
+.final{background:linear-gradient(180deg,rgba(9,9,9,.15),rgba(9,9,9,.15)),radial-gradient(80% 120% at 50% 100%,#f56616 0%,#a53b05 45%,#2a0f03 80%,#090909 100%);text-align:center;padding:100px 0}
+.final h2{color:#fff8ee}
+.final h2 em{color:#fff;opacity:.95}
+.final .lead{color:#ffe6d3}
+.final .btn-dark{background:#0b0b0b;color:#fff;margin-top:26px;box-shadow:0 14px 34px -12px rgba(0,0,0,.8)}
+.final .btn-dark:hover{background:#000;transform:translateY(-2px)}
+
+/* footer */
+footer{padding:44px 0 110px;text-align:center;color:var(--dim);font-size:14px;border-top:1px solid var(--line)}
+footer .ed{color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-size:12px}
+footer .ed b{display:block;color:var(--text);font-size:18px;letter-spacing:.08em;margin-top:6px}
+footer p{max-width:760px;margin:16px auto 0}
+footer a{color:var(--muted)}
+
+/* barra fixa mobile */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(17,17,17,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:none;align-items:center;gap:12px;transform:translateY(110%);transition:transform .3s ease}
+.sticky.show{transform:translateY(0)}
+.sticky .pp{line-height:1.15}
+.sticky .pp b{font-family:var(--serif);font-size:26px;font-weight:600}
+.sticky .pp small{display:block;color:var(--dim);font-size:12px}
+.sticky .btn{flex:1;min-height:50px;padding:12px 16px;font-size:16px}
+
+/* revelar ao rolar */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+/* responsivo */
+@media (max-width:960px){
+  .hero .wrap,.turn .wrap,.kit-grid,.offer-card{grid-template-columns:1fr}
+  .hero-img{max-width:420px;margin:0 auto}
+  .cards,.trail{grid-template-columns:1fr 1fr}
+  .who{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr}
+  .step{border-right:0;border-bottom:1px solid var(--line);padding:22px 0}
+  .step:last-child{border-bottom:0}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  section{padding:64px 0}
+  .wrap{padding:0 16px}
+  .hero{padding:18px 0 48px}
+  .hero .wrap{gap:14px}
+  .hero-img{max-width:300px}
+  .hero-img img{animation:none}
+  .hero h1{font-size:40px;margin-bottom:14px}
+  .hero .lead{margin-bottom:16px;font-size:16px}
+  .eyebrow{font-size:11.5px;margin-bottom:10px}
+  .chips{gap:6px;margin-bottom:18px}
+  .chip{padding:5px 10px;font-size:12.5px}
+  .price-line{margin-bottom:12px}
+  .price-line .p{font-size:38px}
+  .brand{font-size:10.5px}
+  header .btn{display:none}
+  .cards,.trail,.who,.halves{grid-template-columns:1fr}
+  .models{columns:1}
+  .cta-row .btn{width:100%}
+  .offer-card .bd{padding:26px 20px}
+  .offer-card .price .p{font-size:54px}
+  .guarantee{flex-direction:column;text-align:center}
+  .why{grid-template-columns:1fr}
+  .sticky{display:flex}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><b>Gestão Pública na Era da IA</b>Trilha Gestão Administrativa</div>
+    <a class="btn btn-primary cta" href="#LINK-CHECKOUT-KIWIFY">Quero o Volume 1</a>
+  </div>
+</header>
+
+<main>
+
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Volume 1 · DP Público: do ingresso ao desligamento</span>
+      <h1>A colega aposentou.<br><em>A folha ficou com você.</em></h1>
+      <p class="lead">O roteiro do Departamento Pessoal público inteiro, passo a passo: folha, eSocial, previdência e LRF em linguagem simples, com ou sem inteligência artificial.</p>
+      <div class="chips">
+        <span class="chip"><b>9</b> modelos editáveis, já preenchidos</span>
+        <span class="chip"><b>88</b> comandos de IA prontos</span>
+        <span class="chip">Base legal citada em cada capítulo</span>
+      </div>
+      <div class="price-line"><span class="p">R$ 67</span><span class="s">pagamento único</span></div>
+      <div class="cta-row">
+        <a class="btn btn-primary cta" href="#LINK-CHECKOUT-KIWIFY">Quero o roteiro do DP <span class="arr">→</span></a>
+        <a class="btn btn-ghost" href="#conteudo">Ver o que tem dentro</a>
+      </div>
+      <p class="micro">PDF + modelos em Word e Excel · Entrega por e-mail · Garantia de 7 dias</p>
+    </div>
+    <div class="hero-img">
+      <picture>
+        <source srcset="img/vol1.webp" type="image/webp">
+        <img src="img/vol1.jpg" width="900" height="900" alt="Livro DP Público: Do Ingresso ao Desligamento, Volume 1 da Coleção Gestão Pública na Era da IA">
+      </picture>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>Ingresso</span><span class="d">·</span><span>Folha</span><span class="d">·</span><span>eSocial</span><span class="d">·</span><span>Previdência</span><span class="d">·</span><span>Desligamento</span><span class="d">·</span><span>LRF</span><span class="d">·</span><span>LGPD</span><span class="d">·</span><span>Calendário do DP</span><span class="d">·</span>
+    <span>Ingresso</span><span class="d">·</span><span>Folha</span><span class="d">·</span><span>eSocial</span><span class="d">·</span><span>Previdência</span><span class="d">·</span><span>Desligamento</span><span class="d">·</span><span>LRF</span><span class="d">·</span><span>LGPD</span><span class="d">·</span><span>Calendário do DP</span><span class="d">·</span>
+  </div>
+</div>
+
+<!-- 2. DORES -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow rv">A rotina de quem responde pela folha</span>
+    <h2 class="rv">Alguma destas já esteve<br><em>na sua mesa?</em></h2>
+    <div class="cards">
+      <article class="card rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div>
+        <h3>Folha prévia na mesa. Fecha amanhã.</h3>
+        <p>E você precisa ter certeza de que cada verba tem lei, ato e frequência por trás antes de fechar.</p>
+      </article>
+      <article class="card rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 14v3"/></svg></div>
+        <h3>O repasse da previdência venceu.</h3>
+        <p>Depois do prazo, atualização, juros e multa contam desde o atraso. E o desconto do servidor não pode ficar no caixa.</p>
+      </article>
+      <article class="card rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M17 8l5 5M22 8l-5 5"/></svg></div>
+        <h3>Quem saiu continua na folha.</h3>
+        <p>O contrato acabou, ninguém avisou o DP, e o salário integral apareceu na prévia. Pagamento indevido é difícil de recuperar.</p>
+      </article>
+      <article class="card rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div>
+        <h3>O S-1299 foi fechado sem conferir.</h3>
+        <p>A correção exige reabertura e retificação. E uma rubrica com incidência errada repete o erro todo mês.</p>
+      </article>
+      <article class="card rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div>
+        <h3>Um ato de pessoal chegou sem consultar a LRF.</h3>
+        <p>Dependendo da faixa da despesa com pessoal, o ato pode ser vedado ou nulo. E é o DP que entrega o número da despesa com pessoal.</p>
+      </article>
+      <article class="card rv">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg></div>
+        <h3>A planilha da folha foi parar no WhatsApp.</h3>
+        <p>CPF e conta bancária de servidores num grupo de mensagens. E o prazo para comunicar o incidente já está correndo.</p>
+      </article>
+    </div>
+    <blockquote class="bookquote rv">
+      <p>“Quando um desses passos falha, o erro aparece depois, quase sempre com custo: um pagamento indevido, uma multa, um apontamento do tribunal de contas, um servidor prejudicado.”</p>
+      <small>Trecho da Apresentação do Volume 1</small>
+    </blockquote>
+  </div>
+</section>
+
+<!-- 3. A VIRADA -->
+<section class="turn divider">
+  <div class="wrap">
+    <div class="rv">
+      <span class="eyebrow">Por que este livro existe</span>
+      <p class="quote">O Departamento Pessoal de um órgão público é o lugar onde <em>a lei vira número.</em></p>
+    </div>
+    <div class="rv">
+      <p>Quando a rotina do DP mora na cabeça de uma pessoa, ela vai embora junto com essa pessoa: na aposentadoria, nas férias, na mudança de setor. Quem fica herda prazos, rubricas e repasses sem mapa.</p>
+      <p><strong>O Volume 1 coloca essa rotina no papel.</strong> Ele percorre o caminho completo de um vínculo, do ingresso ao desligamento, com roteiros que você pode seguir passo a passo e o fundamento legal de cada etapa.</p>
+      <p>O objetivo é um só: que o seu DP funcione <strong>mesmo no dia em que você não estiver lá.</strong></p>
+      <div class="story">Ao longo do livro você acompanha <b>Marcos</b>, que assume a folha de um município depois da aposentadoria da colega e herda uma rotina que estava toda na memória dela. Você pode ler na ordem, acompanhando o ano dele, ou ir direto ao capítulo do problema que está hoje na sua mesa.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. COMO FUNCIONA -->
+<section>
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow rv">Com ou sem inteligência artificial</span>
+      <h2 class="rv">Cada capítulo tem <em>duas metades.</em></h2>
+      <p class="lead rv">Você decide se usa IA. O conteúdo técnico está inteiro na primeira metade.</p>
+    </div>
+    <div class="halves">
+      <div class="half a rv">
+        <span class="tag">1ª metade · sem IA</span>
+        <h3>O trabalho, do jeito que ele é feito</h3>
+        <p>O roteiro completo, a base legal e os erros mais comuns. Quem não usa IA, ou ainda não tem uma ferramenta autorizada no órgão, lê só esta metade e não perde nada do conteúdo técnico.</p>
+      </div>
+      <div class="half b rv">
+        <span class="tag">2ª metade · com IA</span>
+        <h3>O mesmo roteiro, com IA ao seu lado</h3>
+        <p>Na mesma ordem e com os mesmos títulos: o que entregar à IA e o que retirar antes (dados pessoais), o comando pronto, um exemplo, como conferir a resposta, o erro típico da IA e o limite dela.</p>
+      </div>
+    </div>
+    <div class="rule rv">
+      <p class="serif">A IA auxilia. O servidor do DP confere. O agente competente decide.</p>
+      <small>A regra que atravessa o livro inteiro. Nenhuma resposta da IA é ato administrativo.</small>
+    </div>
+    <div class="steps">
+      <div class="step rv"><span class="n">01</span><div><h4>Em uma frase e um caso</h4><p>Cada capítulo abre com a ideia central e uma situação real de DP, para você saber logo do que se trata.</p></div></div>
+      <div class="step rv"><span class="n">02</span><div><h4>Roteiro de 7 passos</h4><p>O trabalho em ordem, com o fundamento de cada etapa e os erros comuns que aparecem no caminho.</p></div></div>
+      <div class="step rv"><span class="n">03</span><div><h4>Confira e use o kit</h4><p>Uma lista para conferir antes de seguir e um modelo editável pronto para usar no seu órgão.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. CONTEÚDO -->
+<section id="conteudo" class="divider">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow rv">O que você vai encontrar</span>
+      <h2 class="rv">8 capítulos e o <em>calendário anual do DP.</em></h2>
+      <p class="lead rv">Toque em cada capítulo para ver o que ele ensina e o erro que ajuda a evitar.</p>
+    </div>
+    <div class="acc">
+      <details class="rv"><summary><span class="k">1</span>O mapa do DP público</summary><div class="acc-body"><p>Como classificar cada pessoa do quadro: efetivo, comissionado, função de confiança, temporário, empregado público, agente político e estagiário.</p><p class="err"><b>Evita:</b> regra da CLT aplicada a estatutário, temporário renovado para necessidade permanente, comissionado em tarefa operacional. “O erro mais comum do DP não é de cálculo: é de classificação.”</p></div></details>
+      <details class="rv"><summary><span class="k">2</span>Ingresso: da nomeação ao primeiro dia de exercício</summary><div class="acc-body"><p>Nomeação, posse, exercício e contrato, cada um com sua data e seu efeito.</p><p class="err"><b>Evita:</b> cadastrar a data da posse como data de exercício (o que muda o estágio probatório e o primeiro pagamento), prazos contados sem o estatuto e sinal de nepotismo que passa despercebido.</p></div></details>
+      <details class="rv"><summary><span class="k">3</span>Folha de pagamento: montar, conferir e fechar</summary><div class="acc-body"><p>A folha paga o que tem fundamento: lei, ato e frequência. Como conferir a prévia antes de fechar.</p><p class="err"><b>Evita:</b> verba sem lei nem ato, proporcional com data errada, pagamento acima do teto, desconto sem base e o hábito de “fechar e só depois conferir”.</p></div></details>
+      <details class="rv"><summary><span class="k">4</span>eSocial, EFD-Reinf e DCTFWeb: o DP que conversa com a Receita</summary><div class="acc-body"><p>O evento certo para cada vínculo e a conferência dos totais antes de fechar.</p><p class="err"><b>Evita:</b> evento de RGPS usado para servidor do RPPS, S-1299 fechado sem conferir, rubrica com incidência errada e DARF que sai a menor.</p></div></details>
+      <details class="rv"><summary><span class="k">5</span>Previdência: RGPS, RPPS e o dinheiro que não pode atrasar</summary><div class="acc-body"><p>Separar os regimes, conferir a base e as alíquotas, a guia e o prazo do repasse.</p><p class="err"><b>Evita:</b> repasse calculado sobre a prévia, regimes misturados, desconto tratado como caixa e pagar só o principal depois do prazo.</p></div></details>
+      <details class="rv"><summary><span class="k">6</span>Desligamento: a saída também tem roteiro</summary><div class="acc-body"><p>Formas de saída, verbas, prazo e o evento correto no eSocial.</p><p class="err"><b>Evita:</b> manter na folha quem já saiu, usar a data do pedido no lugar da data de efeito, pagar fora do prazo e esquecer o banco do consignado.</p></div></details>
+      <details class="rv"><summary><span class="k">7</span>Despesa com pessoal e LRF: o limite que vigia a folha</summary><div class="acc-body"><p>Os limites da Lei de Responsabilidade Fiscal, o que o DP entrega à contabilidade e quais atos ficam vedados em cada faixa.</p><p class="err"><b>Evita:</b> entregar o líquido em vez do bruto, esquecer a contribuição patronal, misturar dados da Câmara com os da Prefeitura e praticar ato de pessoal sem consultar a faixa.</p></div></details>
+      <details class="rv"><summary><span class="k">8</span>LGPD e transparência no DP</summary><div class="acc-body"><p>Publicar o que é público e proteger o que é pessoal: pedidos de acesso à informação, vazamentos e inventário de dados.</p><p class="err"><b>Evita:</b> planilha da folha enviada por aplicativo de mensagens, atestados em pasta compartilhada, CPF ou endereço entregues num pedido e o incidente escondido.</p></div></details>
+      <details class="rv"><summary><span class="k">E</span>Encerramento: o calendário anual do DP</summary><div class="acc-body"><p>Todas as datas do DP organizadas em três camadas: o mês, o ano e o mandato.</p><p class="err"><b>Evita:</b> o calendário que mora na cabeça de uma pessoa, copiar o ano anterior e esquecer fins de contrato e marcos do mandato.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- 6. KIT -->
+<section class="kit">
+  <div class="wrap">
+    <span class="eyebrow rv">Pronto para usar no seu órgão</span>
+    <h2 class="rv">Não é só leitura. <em>É ferramenta.</em></h2>
+    <div class="kit-grid">
+      <div class="box rv">
+        <h3><span class="big">9</span> modelos editáveis, já preenchidos com um exemplo</h3>
+        <ul class="models">
+          <li><b>1.1</b>Levantamento do quadro por vínculo</li>
+          <li><b>2.1</b>Ficha de ingresso</li>
+          <li><b>3.1</b>Conferência da folha prévia</li>
+          <li><b>4.1</b>Calendário mensal das obrigações com a Receita</li>
+          <li><b>5.1</b>Conferência mensal de contribuições e repasses</li>
+          <li><b>6.1</b>Ficha de desligamento</li>
+          <li><b>7.1</b>Quadro de despesa com pessoal para a contabilidade</li>
+          <li><b>8.1</b>Inventário de dados do DP e ficha de incidente</li>
+          <li><b>E.1</b>Calendário anual do DP</li>
+        </ul>
+      </div>
+      <div class="side">
+        <div class="box rv">
+          <h3><span class="big">88</span> comandos de IA</h3>
+          <p>Prontos para copiar e colar, organizados por capítulo. Cada um traz uma frase de segurança, e o último de cada capítulo serve para conferir a resposta da IA.</p>
+        </div>
+        <div class="box rv">
+          <h3>E ainda</h3>
+          <ul class="ticks">
+            <li>Siglas e glossário</li>
+            <li>Legislação e jurisprudência citadas</li>
+            <li>Mapa dos comandos e modelos</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. PARA QUEM -->
+<section>
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow rv">Para quem é</span>
+      <h2 class="rv">Escrito para quem <em>responde pelo DP.</em></h2>
+    </div>
+    <div class="who">
+      <div class="card rv"><h3>Servidores do DP</h3><p>De prefeituras, câmaras, autarquias e consórcios públicos.</p></div>
+      <div class="card rv"><h3>Quem acabou de assumir a folha</h3><p>E precisa de um roteiro para não depender da memória de ninguém.</p></div>
+      <div class="card rv"><h3>Chefias</h3><p>Que respondem pela folha e precisam saber o que conferir antes de assinar.</p></div>
+      <div class="card rv"><h3>Gestores</h3><p>Que precisam entender o que o DP faz para decidir bem.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. COLEÇÃO -->
+<section class="divider">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow rv">Coleção Gestão Pública na Era da IA</span>
+      <h2 class="rv">Uma trilha em três volumes.<br><em>Comece pelo primeiro.</em></h2>
+      <p class="lead rv">A Trilha Gestão Administrativa segue o caminho do trabalho: primeiro as pessoas, depois o dinheiro e os bens, por fim o controle e os recursos que vêm de fora.</p>
+    </div>
+    <div class="trail">
+      <article class="vol first rv">
+        <div class="ph"><picture><source srcset="img/vol1-sm.webp" type="image/webp"><img src="img/vol1-sm.jpg" width="560" height="560" alt="Volume 1: DP Público" loading="lazy"></picture></div>
+        <div class="bd">
+          <span class="badge">Comece aqui · Volume 1</span>
+          <h3>DP Público: do Ingresso ao Desligamento</h3>
+          <p class="theme">As pessoas</p>
+          <p>Folha, eSocial, previdência, desligamento, LRF e LGPD. 8 capítulos, calendário anual, 9 modelos e 88 comandos de IA.</p>
+        </div>
+      </article>
+      <article class="vol rv">
+        <div class="ph"><picture><source srcset="img/vol2.webp" type="image/webp"><img src="img/vol2.jpg" width="560" height="560" alt="Volume 2: Contabilidade e Patrimônio Público" loading="lazy"></picture></div>
+        <div class="bd">
+          <span class="badge">Volume 2</span>
+          <h3>Contabilidade e Patrimônio Público: do Orçamento ao Inventário</h3>
+          <p class="theme">O dinheiro e os bens</p>
+          <p>Orçamento, empenho, liquidação e pagamento, relatórios fiscais, bens, almoxarifado, frota e fechamento do exercício. 12 capítulos, 13 modelos e 5 planilhas com fórmulas.</p>
+        </div>
+      </article>
+      <article class="vol rv">
+        <div class="ph"><picture><source srcset="img/vol3.webp" type="image/webp"><img src="img/vol3.jpg" width="560" height="560" alt="Volume 3: Controle Interno, Convênios e Emendas" loading="lazy"></picture></div>
+        <div class="bd">
+          <span class="badge">Volume 3</span>
+          <h3>Controle Interno, Convênios e Emendas: do Risco à Prestação de Contas</h3>
+          <p class="theme">O controle e os recursos de fora</p>
+          <p>Plano de auditoria pelo risco, convênios, emendas parlamentares, fundo a fundo e parcerias com OSC. 12 capítulos, 13 modelos e 4 planilhas com fórmulas.</p>
+        </div>
+      </article>
+    </div>
+    <div class="why rv">
+      <span class="n">01</span>
+      <div>
+        <h3>Por que começar pelo Volume 1</h3>
+        <p>Porque tudo começa nas pessoas. A folha é onde a lei vira número todos os meses, e é o DP que entrega à contabilidade o quadro da despesa com pessoal, o número que a LRF acompanha. É a base sobre a qual os Volumes 2 e 3 trabalham.</p>
+        <p><strong>Quem começa pelo Volume 1 encontra no checkout uma condição especial para completar a trilha com os Volumes 2 e 3.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9/10. OFERTA -->
+<section id="oferta" class="offer">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow rv">Comece hoje</span>
+      <h2 class="rv">O roteiro do DP, <em>nas suas mãos.</em></h2>
+    </div>
+    <div class="offer-card rv">
+      <div class="ph"><picture><source srcset="img/vol1-sm.webp" type="image/webp"><img src="img/vol1-sm.jpg" width="560" height="560" alt="Volume 1: DP Público" loading="lazy"></picture></div>
+      <div class="bd">
+        <h3>Volume 1 · DP Público: do Ingresso ao Desligamento</h3>
+        <ul class="ticks">
+          <li>Livro digital em PDF: 8 capítulos e o calendário anual do DP</li>
+          <li>9 modelos editáveis (Word e Excel), já preenchidos com um exemplo</li>
+          <li>88 comandos de IA prontos para copiar</li>
+          <li>Glossário, legislação e jurisprudência citadas e mapa dos comandos</li>
+        </ul>
+        <div class="price"><span class="p">R$ 67</span><span class="s">pagamento único</span></div>
+        <a class="btn btn-primary cta" href="#LINK-CHECKOUT-KIWIFY">Quero o roteiro do DP <span class="arr">→</span></a>
+        <div class="secure"><span>Compra segura</span><span>Entrega por e-mail após a confirmação</span><span>Edição Instituto Formare</span></div>
+      </div>
+    </div>
+    <div class="guarantee rv">
+      <div class="seal">7<small>DIAS</small></div>
+      <p><b>Garantia de 7 dias.</b> Se, dentro desse prazo, você achar que o livro não serve para a sua rotina, pede o reembolso pela própria plataforma de pagamento e recebe o valor de volta.</p>
+    </div>
+    <p class="upnote rv">No checkout, você pode <b>completar a trilha</b> com os Volumes 2 e 3 em condição especial.</p>
+  </div>
+</section>
+
+<!-- 11. FAQ -->
+<section class="faq divider">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow rv">Dúvidas frequentes</span>
+      <h2 class="rv">Antes de <em>decidir.</em></h2>
+    </div>
+    <div class="acc">
+      <details class="rv"><summary>Preciso saber usar inteligência artificial?</summary><div class="acc-body"><p>Não. A primeira metade de cada capítulo ensina o trabalho sem IA e traz todo o conteúdo técnico. A segunda metade é para quem quer usar IA no mesmo processo.</p></div></details>
+      <details class="rv"><summary>Meu órgão não autorizou o uso de IA. O livro serve?</summary><div class="acc-body"><p>Serve. Quem não tem uma ferramenta autorizada lê só a primeira metade e não perde nada. Quando a ferramenta chegar, a segunda metade já está pronta, com o cuidado de retirar dados pessoais antes de usar.</p></div></details>
+      <details class="rv"><summary>Meu município tem estatuto próprio. Funciona para mim?</summary><div class="acc-body"><p>Funciona. O livro mostra o caminho e o fundamento nacional de cada etapa e indica onde conferir a lei do seu ente. Ele não substitui a legislação local nem o parecer jurídico do órgão; ajuda você a chegar a eles mais preparado.</p></div></details>
+      <details class="rv"><summary>Serve para câmara, autarquia ou consórcio público?</summary><div class="acc-body"><p>Sim. O livro foi escrito para o DP de prefeituras, câmaras, autarquias e consórcios públicos, para as chefias que respondem pela folha e para os gestores.</p></div></details>
+      <details class="rv"><summary>Substitui o jurídico ou a contabilidade?</summary><div class="acc-body"><p>Não. O livro organiza o trabalho do DP e mostra o que conferir, o que entregar e a quem perguntar. As decisões continuam com o agente competente, e as dúvidas de interpretação, com o jurídico do órgão.</p></div></details>
+      <details class="rv"><summary>Como eu recebo o material?</summary><div class="acc-body"><p>Depois da confirmação do pagamento, você recebe por e-mail o acesso ao livro em PDF e aos modelos editáveis em Word e Excel.</p></div></details>
+      <details class="rv"><summary>O que são os 88 comandos de IA?</summary><div class="acc-body"><p>São textos prontos para copiar e colar numa ferramenta de IA, um para cada passo do roteiro. Cada comando traz uma frase de segurança, e o último de cada capítulo serve para conferir a resposta que a IA deu.</p></div></details>
+      <details class="rv"><summary>A legislação está atualizada?</summary><div class="acc-body"><p>O livro cita a legislação e a jurisprudência em que se baseia, incluindo normas de 2026, e lista todas num anexo para você conferir na fonte.</p></div></details>
+      <details class="rv"><summary>E os Volumes 2 e 3?</summary><div class="acc-body"><p>Eles completam a Trilha Gestão Administrativa. Quem compra o Volume 1 encontra no checkout a opção de levar os Volumes 2 e 3 em condição especial.</p></div></details>
+      <details class="rv"><summary>E se o livro não servir para mim?</summary><div class="acc-body"><p>Você tem 7 dias de garantia. Dentro desse prazo, pede o reembolso pela plataforma de pagamento e recebe o valor de volta.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- 12. CTA FINAL -->
+<section class="final">
+  <div class="wrap">
+    <h2 class="rv">Que o seu DP funcione<br><em>mesmo no dia em que você não estiver lá.</em></h2>
+    <p class="lead rv">Volume 1 · DP Público: do Ingresso ao Desligamento · R$ 67</p>
+    <a class="btn btn-dark cta rv" href="#LINK-CHECKOUT-KIWIFY">Quero o roteiro do DP <span class="arr">→</span></a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ed">Edição e distribuição<b>Instituto Formare</b></div>
+    <p>Coleção Gestão Pública na Era da IA · Trilha Gestão Administrativa</p>
+    <p>Este material tem caráter orientativo e não substitui a legislação do seu ente, os manuais oficiais vigentes nem o parecer jurídico do órgão.</p>
+    <p>Esta página usa cookies e ferramentas de medição de anúncios. Os dados informados na compra são tratados pela plataforma de pagamento, nos termos da Lei Geral de Proteção de Dados (Lei 13.709/2018). <a href="#LINK-POLITICA-PRIVACIDADE">Política de privacidade</a></p>
+    <p>© 2026 Instituto Formare. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky">
+  <div class="pp"><b>R$ 67</b><small>Volume 1 · DP Público</small></div>
+  <a class="btn btn-primary cta" href="#LINK-CHECKOUT-KIWIFY">Quero o roteiro <span class="arr">→</span></a>
+</div>
+
+<script>
+(function(){
+  // Leva os parâmetros de campanha (utm, fbclid etc.) da página para o checkout
+  var qs = window.location.search.replace(/^\?/, '');
+  document.querySelectorAll('a.cta').forEach(function(a){
+    var href = a.getAttribute('href');
+    if (qs && href.indexOf('http') === 0) a.href = href + (href.indexOf('?') > -1 ? '&' : '?') + qs;
+    a.addEventListener('click', function(){ if (window.fbq) fbq('track','InitiateCheckout',{value:67,currency:'BRL'}); });
+  });
+  // Revela as seções ao rolar
+  var els = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); },{rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(el){ io.observe(el); });
+  } else { els.forEach(function(el){ el.classList.add('in'); }); }
+  // Barra fixa no celular depois do topo
+  var sticky = document.getElementById('sticky'), hero = document.querySelector('.hero'), offer = document.getElementById('oferta');
+  function onScroll(){
+    var y = window.scrollY, h = hero.offsetTop + hero.offsetHeight;
+    var o = offer.getBoundingClientRect(), inOffer = o.top < window.innerHeight && o.bottom > 0;
+    sticky.classList.toggle('show', y > h && !inOffer);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+})();
+</script>
+</body>
+</html>
