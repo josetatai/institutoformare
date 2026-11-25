@@ -18,7 +18,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="img/hero-modelo.webp">
 
-<!-- META PIXEL: cole aqui o código base do Pixel (fbq init + PageView), se for usar. -->
+<!-- Meta Pixel (o mesmo das outras páginas do Instituto Formare) -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1098378299639742');
+fbq('track','PageView');
+fbq('track','ViewContent',{content_name:'Vol. 1 · DP Público: do Ingresso ao Desligamento',content_type:'product',value:67,currency:'BRL'});
+</script>
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1098378299639742&ev=PageView&noscript=1"></noscript>
 
 <style>
 :root{
@@ -271,7 +282,7 @@ footer a{color:var(--muted)}
 <header class="top">
   <div class="wrap">
     <div class="brand"><b>Gestão Pública na Era da IA</b>Trilha Gestão Administrativa</div>
-    <a class="btn btn-primary cta" href="#LINK-CHECKOUT-KIWIFY">Quero o Volume 1</a>
+    <a class="btn btn-primary cta" data-botao="topo" target="_blank" rel="noopener" href="#LINK-CHECKOUT-KIWIFY">Quero o Volume 1</a>
   </div>
 </header>
 
@@ -291,7 +302,7 @@ footer a{color:var(--muted)}
       </div>
       <div class="price-line"><span class="p">R$ 67</span><span class="s">pagamento único</span></div>
       <div class="cta-row">
-        <a class="btn btn-primary cta" href="#LINK-CHECKOUT-KIWIFY">Quero o roteiro do DP <span class="arr">→</span></a>
+        <a id="hero-cta" class="btn btn-primary cta" data-botao="inicio" target="_blank" rel="noopener" href="#LINK-CHECKOUT-KIWIFY">Quero o roteiro do DP <span class="arr">→</span></a>
         <a class="btn btn-ghost" href="#conteudo">Ver o que tem dentro</a>
       </div>
       <p class="micro">PDF + modelos em Word e Excel · Entrega por e-mail · Garantia de 7 dias</p>
@@ -546,7 +557,7 @@ footer a{color:var(--muted)}
           <li>Glossário, legislação e jurisprudência citadas e mapa dos comandos</li>
         </ul>
         <div class="price"><span class="p">R$ 67</span><span class="s">pagamento único</span></div>
-        <a class="btn btn-primary cta" href="#LINK-CHECKOUT-KIWIFY">Quero o roteiro do DP <span class="arr">→</span></a>
+        <a class="btn btn-primary cta" data-botao="bloco-compra" target="_blank" rel="noopener" href="#LINK-CHECKOUT-KIWIFY">Quero o roteiro do DP <span class="arr">→</span></a>
         <div class="secure"><span>Compra segura</span><span>Entrega por e-mail após a confirmação</span><span>Edição Instituto Formare</span></div>
       </div>
     </div>
@@ -585,7 +596,7 @@ footer a{color:var(--muted)}
   <div class="wrap">
     <h2 class="rv">Que o seu DP funcione<br><em>mesmo no dia em que você não estiver lá.</em></h2>
     <p class="lead rv">Volume 1 · DP Público: do Ingresso ao Desligamento · R$ 67</p>
-    <a class="btn btn-dark cta rv" href="#LINK-CHECKOUT-KIWIFY">Quero o roteiro do DP <span class="arr">→</span></a>
+    <a id="cta-final" class="btn btn-dark cta rv" data-botao="final" target="_blank" rel="noopener" href="#LINK-CHECKOUT-KIWIFY">Quero o roteiro do DP <span class="arr">→</span></a>
   </div>
 </section>
 
@@ -596,36 +607,108 @@ footer a{color:var(--muted)}
     <div class="ed">Edição e distribuição<b>Instituto Formare</b></div>
     <p>Coleção Gestão Pública na Era da IA · Trilha Gestão Administrativa</p>
     <p>Este material tem caráter orientativo e não substitui a legislação do seu ente, os manuais oficiais vigentes nem o parecer jurídico do órgão.</p>
-    <p>Esta página usa cookies e ferramentas de medição de anúncios. Os dados informados na compra são tratados pela plataforma de pagamento, nos termos da Lei Geral de Proteção de Dados (Lei 13.709/2018). <a href="#LINK-POLITICA-PRIVACIDADE">Política de privacidade</a></p>
-    <p>© 2026 Instituto Formare. Todos os direitos reservados.</p>
+    <p>Esta página usa cookies e ferramentas de medição de anúncios. Os dados informados na compra são tratados pela plataforma de pagamento, nos termos da Lei Geral de Proteção de Dados (Lei 13.709/2018). <a href="#LINK-POLITICA-PRIVACIDADE">Política de Privacidade</a> · <a href="#LINK-TERMOS-DE-USO">Termos de Uso</a></p>
+    <p>Instituto Formare (nome fantasia) · ZT Soluções · CNPJ 13.978.889/0001-28 · <a href="mailto:contato@institutoformare.com.br">contato@institutoformare.com.br</a></p>
+    <p>© <span id="ano">2026</span> Instituto Formare. Todos os direitos reservados.</p>
   </div>
 </footer>
 
 <div class="sticky" id="sticky">
   <div class="pp"><b>R$ 67</b><small>Volume 1 · DP Público</small></div>
-  <a class="btn btn-primary cta" href="#LINK-CHECKOUT-KIWIFY">Quero o roteiro <span class="arr">→</span></a>
+  <a class="btn btn-primary cta" data-botao="barra-celular" target="_blank" rel="noopener" href="#LINK-CHECKOUT-KIWIFY">Quero o roteiro <span class="arr">→</span></a>
 </div>
 
 <script>
 (function(){
-  // Leva os parâmetros de campanha (utm, fbclid etc.) da página para o checkout
-  var qs = window.location.search.replace(/^\?/, '');
-  document.querySelectorAll('a.cta').forEach(function(a){
-    var href = a.getAttribute('href');
-    if (qs && href.indexOf('http') === 0) a.href = href + (href.indexOf('?') > -1 ? '&' : '?') + qs;
-    a.addEventListener('click', function(){ if (window.fbq) fbq('track','InitiateCheckout',{value:67,currency:'BRL'}); });
-  });
   // Revela as seções ao rolar
   var els = document.querySelectorAll('.rv');
   if ('IntersectionObserver' in window){
     var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); },{rootMargin:'0px 0px -8% 0px'});
     els.forEach(function(el){ io.observe(el); });
   } else { els.forEach(function(el){ el.classList.add('in'); }); }
-  // Barra fixa no celular depois do topo
-  var sticky = document.getElementById('sticky'), heroCta = document.querySelector('.hero .cta'), offer = document.getElementById('oferta');
+
+  // Barra fixa no celular: aparece quando o botão do topo sai da tela e some na oferta e no CTA final
+  var sticky = document.getElementById('sticky'), heroCta = document.getElementById('hero-cta'), offer = document.getElementById('oferta'), finalCta = document.getElementById('cta-final');
   function vis(el){ var r = el.getBoundingClientRect(); return r.top < window.innerHeight && r.bottom > 0; }
-  function onScroll(){ sticky.classList.toggle('show', !vis(heroCta) && !vis(offer)); }
+  function onScroll(){ sticky.classList.toggle('show', !vis(heroCta) && !vis(offer) && !vis(finalCta)); }
   window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // ===== Medição (mesmo sistema das outras páginas do Instituto Formare) =====
+  var inicio = Date.now();
+  function segundos(){ return Math.round((Date.now() - inicio) / 1000); }
+  function evento(nome, dados){ if (window.fbq) fbq('trackCustom', nome, dados); }
+  function guardado(area, chave){
+    try { var v = area.getItem(chave); if (!v) { v = Math.random().toString(36).slice(2) + Date.now().toString(36); area.setItem(chave, v); } return v; }
+    catch (e) { return 'anonimo'; }
+  }
+  var visitante = guardado(window.localStorage, 'fv'), sessao = guardado(window.sessionStorage, 'fs');
+
+  // Etiquetas do link (UTM): guardadas na visita e repassadas ao checkout da Kiwify
+  var chaves = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','src','sck'];
+  var etiquetas = {};
+  try { etiquetas = JSON.parse(sessionStorage.getItem('etiquetas') || '{}'); } catch (e) {}
+  var busca = new URLSearchParams(location.search);
+  chaves.forEach(function(k){ if (busca.get(k)) etiquetas[k] = busca.get(k); });
+  // Links curtos gerados no painel: ?o=origem&c=campanha
+  if (busca.get('o')) { etiquetas.utm_source = busca.get('o'); etiquetas.utm_medium = 'link-painel'; }
+  if (busca.get('c')) etiquetas.utm_campaign = busca.get('c');
+  // Clique vindo do Facebook/Instagram sem etiqueta: a Meta acrescenta fbclid
+  if (!etiquetas.utm_source && busca.get('fbclid')) etiquetas.utm_source = 'facebook-instagram';
+  try { sessionStorage.setItem('etiquetas', JSON.stringify(etiquetas)); } catch (e) {}
+  var origem = etiquetas.utm_source || 'direto';
+  var campanha = etiquetas.utm_campaign || '';
+
+  // Contagem própria do painel (land.institutoformare.com.br/painel), sem dados pessoais
+  function painel(t, d, s, f){
+    var e = { p: location.pathname, t: t, d: d, s: s, f: f, v: visitante, ss: sessao, r: document.referrer,
+      us: etiquetas.utm_source, uc: etiquetas.utm_campaign, um: etiquetas.utm_medium, ut: etiquetas.utm_content };
+    try { navigator.sendBeacon('/painel/coleta.php', new Blob([JSON.stringify(e)], { type: 'text/plain' })); } catch (x) {}
+  }
+  painel('visita');
+
+  // Até onde a pessoa rolou: cada seção vista (uma vez por visita)
+  var secoes = ['inicio','dor','virada','metades','conteudo','kit','para-quem','colecao','oferta','faq','final'];
+  var maisFunda = 'inicio';
+  var blocos = document.querySelectorAll('main > section');
+  if ('IntersectionObserver' in window){
+    var vistas = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        var i = Array.prototype.indexOf.call(blocos, e.target);
+        var nome = secoes[i] || ('secao-' + (i + 1));
+        if (i > secoes.indexOf(maisFunda)) maisFunda = nome;
+        evento('SecaoVista', { secao: nome, ordem: i + 1, origem: origem });
+        painel('secao', nome);
+        vistas.unobserve(e.target);
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -50% 0px' });
+    blocos.forEach(function(s){ vistas.observe(s); });
+  }
+
+  // Quanto tempo ficou: marcos de 30 s, 1, 2 e 5 minutos com a página aberta na tela
+  [30, 60, 120, 300].forEach(function(s){
+    var falta = s * 1000, t0 = Date.now(), timer = null;
+    function liga(){ t0 = Date.now(); timer = setTimeout(function(){ evento('TempoNaPagina', { segundos: s, origem: origem }); painel('tempo', null, s); }, falta); }
+    function pausa(){ clearTimeout(timer); falta -= Date.now() - t0; }
+    document.addEventListener('visibilitychange', function(){ if (falta <= 0) return; document.hidden ? pausa() : liga(); });
+    if (!document.hidden) liga();
+  });
+
+  // Botões de compra: etiquetas no link do checkout + evento próprio (não duplica o InitiateCheckout da Kiwify)
+  document.querySelectorAll('a.cta').forEach(function(a, i){
+    if (/^https?:/i.test(a.getAttribute('href'))) {
+      var url = new URL(a.href);
+      Object.keys(etiquetas).forEach(function(k){ url.searchParams.set(k, etiquetas[k]); });
+      a.href = url.toString();
+    }
+    a.addEventListener('click', function(){
+      var botao = a.getAttribute('data-botao') || ('botao-' + (i + 1));
+      evento('CliqueComprar', { botao: botao, segundos_na_pagina: segundos(), secao_mais_funda: maisFunda, origem: origem, campanha: campanha });
+      painel('clique', botao, segundos(), maisFunda);
+    });
+  });
+
+  document.getElementById('ano').textContent = new Date().getFullYear();
 })();
 </script>
 </body>
