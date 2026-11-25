@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="img/vol1.webp">
+<link rel="preload" as="image" href="img/hero-modelo.webp">
 
 <!-- META PIXEL: cole aqui o código base do Pixel (fbq init + PageView), se for usar. -->
 
@@ -76,7 +76,7 @@ header .btn{min-height:42px;padding:10px 18px;font-size:14px}
 .cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .hero-img{position:relative}
 .hero-img::before{content:"";position:absolute;inset:12% 8%;background:radial-gradient(closest-side,rgba(245,102,22,.45),transparent);filter:blur(30px);z-index:0}
-.hero-img img{position:relative;z-index:1;border-radius:var(--r);animation:float 7s ease-in-out infinite}
+.hero-img img{position:relative;z-index:1;border-radius:18px;border:1px solid rgba(245,102,22,.45);box-shadow:0 30px 70px -30px rgba(245,102,22,.55)}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
 /* marquee */
@@ -244,8 +244,8 @@ footer a{color:var(--muted)}
   .wrap{padding:0 16px}
   .hero{padding:18px 0 48px}
   .hero .wrap{gap:14px}
-  .hero-img{max-width:300px}
-  .hero-img img{animation:none}
+  .hero-img{order:-1;max-width:none;width:100%}
+  .hero-img img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 28%}
   .hero h1{font-size:40px;margin-bottom:14px}
   .hero .lead{margin-bottom:16px;font-size:16px}
   .eyebrow{font-size:11.5px;margin-bottom:10px}
@@ -298,8 +298,8 @@ footer a{color:var(--muted)}
     </div>
     <div class="hero-img">
       <picture>
-        <source srcset="img/vol1.webp" type="image/webp">
-        <img src="img/vol1.jpg" width="900" height="900" alt="Livro DP Público: Do Ingresso ao Desligamento, Volume 1 da Coleção Gestão Pública na Era da IA">
+        <source srcset="img/hero-modelo.webp" type="image/webp">
+        <img src="img/hero-modelo.jpg" width="660" height="725" alt="Servidora segurando o livro DP Público: Do Ingresso ao Desligamento, Volume 1 da Coleção Gestão Pública na Era da IA">
       </picture>
     </div>
   </div>
@@ -622,12 +622,9 @@ footer a{color:var(--muted)}
     els.forEach(function(el){ io.observe(el); });
   } else { els.forEach(function(el){ el.classList.add('in'); }); }
   // Barra fixa no celular depois do topo
-  var sticky = document.getElementById('sticky'), hero = document.querySelector('.hero'), offer = document.getElementById('oferta');
-  function onScroll(){
-    var y = window.scrollY, h = hero.offsetTop + hero.offsetHeight;
-    var o = offer.getBoundingClientRect(), inOffer = o.top < window.innerHeight && o.bottom > 0;
-    sticky.classList.toggle('show', y > h && !inOffer);
-  }
+  var sticky = document.getElementById('sticky'), heroCta = document.querySelector('.hero .cta'), offer = document.getElementById('oferta');
+  function vis(el){ var r = el.getBoundingClientRect(); return r.top < window.innerHeight && r.bottom > 0; }
+  function onScroll(){ sticky.classList.toggle('show', !vis(heroCta) && !vis(offer)); }
   window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
 })();
 </script>
