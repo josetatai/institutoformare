@@ -5,6 +5,7 @@ import { reprocessAction } from '../actions';
 import { getSettings } from '@/lib/settings';
 import { signatureReport } from '@/lib/kiwify';
 
+const pretty = (raw) => { try { return JSON.stringify(JSON.parse(raw), null, 2).slice(0, 8000); } catch { return String(raw).slice(0, 8000); } };
 const KIND = { approved: 'Compra aprovada', revoked: 'Reembolso / chargeback', ignored: 'Outro evento' };
 
 export default async function Avisos() {
@@ -26,7 +27,9 @@ export default async function Avisos() {
           <tr key={r.id}>
             <td>{r.id}</td><td>{br(r.received_at)}</td><td>{KIND[r.event_kind] || r.event_kind}<br /><small className="adm-help">{r.event_raw_type}</small></td>
             <td>{r.order_id}</td><td>{r.email}</td>
-            <td>{!r.signature_ok ? <><span className="adm-warn">Assinatura inválida</span>{r.raw_body !== undefined && <><br /><small className="adm-help">{signatureReport(r.raw_body, r.sig_received, token)}</small></>}</> : r.processed_at ? 'Processado' : <span className="adm-warn">Pendente: {r.error}</span>}</td>
+            <td>
+              {r.raw_body && <details className="adm-help"><summary style={{ cursor: 'pointer' }}>ver dados</summary><pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all', maxHeight: 360, overflow: 'auto', fontSize: 12 }}>{pretty(r.raw_body)}</pre></details>}
+              {!r.signature_ok ? <><span className="adm-warn">Assinatura inválida</span>{r.raw_body && <><br /><small className="adm-help">{signatureReport(r.raw_body, r.sig_received, token)}</small></>}</> : r.processed_at ? 'Processado' : <span className="adm-warn">Pendente: {r.error}</span>}</td>
           </tr>
         ))}</tbody>
       </table></div>
