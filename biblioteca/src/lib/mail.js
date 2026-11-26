@@ -20,7 +20,7 @@ function layout(title, bodyHtml) {
   return `<!doctype html><html><body style="margin:0;background:#f1f3f7;font-family:Arial,Helvetica,sans-serif;color:#1d2330">
 <table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:24px 12px">
 <table width="560" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:12px;overflow:hidden">
-<tr><td style="background:#0a0d13;padding:20px 28px"><img src="${APP()}/logo-formare-branco.webp" alt="Instituto Formare" height="36" style="display:block"></td></tr>
+<tr><td style="background:#0a0d13;padding:20px 28px"><img src="${APP()}/logo-email.png" alt="Instituto Formare" width="154" height="36" style="display:block;border:0;outline:none;width:154px;height:36px"></td></tr>
 <tr><td style="padding:28px">
 <h1 style="font-size:22px;margin:0 0 14px;color:#0f3f86">${esc(title)}</h1>
 ${bodyHtml}
