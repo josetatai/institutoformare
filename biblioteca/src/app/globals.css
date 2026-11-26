@@ -241,7 +241,7 @@ a.btn{text-decoration:none}
 .adm-nav{gap:18px;font-size:14px}
 .adm-nav a{color:var(--muted);text-decoration:none}
 .adm-nav a:hover{color:var(--fg)}
-@media(max-width:800px){.adm-nav{display:none!important}}
+@media(max-width:800px){.adm .x{display:none}header.top .bar:has(.adm-nav){flex-wrap:wrap;height:auto;padding-block:10px;gap:8px 14px}.adm-nav{display:flex!important;order:3;width:100%;overflow-x:auto;white-space:nowrap;gap:16px}}
 .adm-help{color:var(--muted);font-size:13.5px;margin:4px 0 14px}
 .adm-warn{color:var(--wait)}
 .adm-back{color:var(--accent-strong);text-decoration:none;font-size:14px}
