@@ -23,10 +23,11 @@ export async function applyEvent(ev, { sendEmail = true } = {}) {
 
   // compra aprovada
   if (!ev.email) return { ok: false, note: 'aviso sem e-mail do cliente' };
-  // oferta específica (ex.: upsell) tem prioridade sobre a regra geral do produto
+  // regra mais específica primeiro: oferta, depois valor pago (a Kiwify não manda a oferta), depois o padrão do produto
   const product =
     (ev.offerId && (await one("SELECT * FROM products WHERE kiwify_product_id = ? AND kiwify_offer_id = ?", [ev.productId, ev.offerId]))) ||
-    (await one("SELECT * FROM products WHERE kiwify_product_id = ? AND kiwify_offer_id = ''", [ev.productId]));
+    (ev.priceCents && (await one("SELECT * FROM products WHERE kiwify_product_id = ? AND kiwify_price_cents = ?", [ev.productId, ev.priceCents]))) ||
+    (await one("SELECT * FROM products WHERE kiwify_product_id = ? AND kiwify_offer_id = '' AND kiwify_price_cents IS NULL", [ev.productId]));
   if (!product) return { ok: false, note: `produto Kiwify ${ev.productId} ainda não ligado a títulos` };
   const items = await q('SELECT title_id, release_days FROM product_titles WHERE product_id = ?', [product.id]);
   if (!items.length) return { ok: false, note: `produto ${product.name} sem títulos ligados` };

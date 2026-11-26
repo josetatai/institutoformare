@@ -59,15 +59,34 @@ export function normalize(payload) {
     offerId: String(pick(product.product_offer_id, product.offer_id, p.offer_id, p.Offer?.offer_id, p.Offer?.id, '') || '') || null,
     email: String(pick(customer.email, p.customer_email, '') || '').trim().toLowerCase() || null,
     name: pick(customer.full_name, customer.name, p.customer_name, null),
+    priceCents: Number(pick(p.Commissions?.product_base_price, p.Commissions?.charge_amount, 0)) || null,
     approvedAt: pick(p.approved_date, p.paid_at, p.updated_at, p.created_at, null),
   };
 }
 
-/** Datas da Kiwify chegam como "2026-11-26 14:32" no horário de Brasília. */
-export function parseKiwifyDate(s) {
-  if (!s) return new Date();
-  const str = String(s);
-  if (/[zZ]|[+-]\d{2}:?\d{2}$/.test(str)) return new Date(str);
-  const d = new Date(str.replace(' ', 'T') + '-03:00');
-  return isNaN(d) ? new Date() : d;
+/** A Kiwify manda as datas em UTC ("2026-11-26 23:46"). Nunca no futuro: no máximo agora. */
+export function parseKiwifyDate(v) {
+  const now = new Date();
+  if (!v) return now;
+  const str = String(v).trim();
+  let d;
+  if (/[zZ]|[+-]\d{2}:?\d{2}$/.test(str)) d = new Date(str);
+  else d = new Date(str.replace(' ', 'T') + (str.length <= 16 ? ':00' : '') + 'Z');
+  if (isNaN(d)) return now;
+  return d > now ? now : d;
+}
+
+const HIDDEN = '[oculto]';
+const CUSTOMER_PRIVATE = ['CPF', 'cnpj', 'mobile', 'ip', 'instagram', 'street', 'number', 'complement', 'neighborhood', 'city', 'state', 'zipcode', 'custom_fields'];
+const ORDER_PRIVATE = ['card_last4digits', 'boleto_barcode', 'boleto_URL', 'pix_code'];
+
+/** Cópia do aviso sem dados pessoais desnecessários (CPF, telefone, endereço, cartão, pix, boleto). */
+export function redact(payload) {
+  const c = JSON.parse(JSON.stringify(payload ?? {}));
+  const o = c.order && typeof c.order === 'object' ? c.order : c;
+  for (const k of ORDER_PRIVATE) if (o[k]) o[k] = HIDDEN;
+  const cust = o.Customer || o.customer;
+  if (cust) for (const k of CUSTOMER_PRIVATE) if (cust[k] !== undefined && cust[k] !== null && cust[k] !== '') cust[k] = HIDDEN;
+  if (o.Commissions?.commissioned_stores) o.Commissions.commissioned_stores = HIDDEN;
+  return c;
 }

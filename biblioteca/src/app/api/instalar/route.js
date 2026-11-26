@@ -51,10 +51,14 @@ export async function POST(req) {
     for (const [table, col, ddl] of [
       ['webhook_events', 'raw_body', 'MEDIUMTEXT NULL'],
       ['webhook_events', 'sig_received', 'VARCHAR(100) NULL'],
+      ['products', 'kiwify_price_cents', 'INT NULL'],
     ]) {
       const [[has]] = await db.query('SELECT COUNT(*) AS n FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = ? AND column_name = ?', [table, col]);
       if (!has.n) { await db.query(`ALTER TABLE ${table} ADD COLUMN ${col} ${ddl}`); log.push(`coluna ${table}.${col} criada`); }
     }
+    // ajuste dos dados já carregados: upsell do Servidor 4.0 (R$ 67) identificado pelo valor
+    const [pr] = await db.query("UPDATE products SET kiwify_price_cents = 6700 WHERE kiwify_product_id = 'ade05fe0-d7ed-11f1-94de-a55929c22af7' AND kiwify_offer_id = 'c26eba88-8376-4199-8e43-2bf0d8bea393' AND kiwify_price_cents IS NULL");
+    if (pr.affectedRows) log.push('upsell do Servidor 4.0 ligado ao valor R$ 67');
     log.push('tabelas ok');
     const [[{ n }]] = await db.query('SELECT COUNT(*) AS n FROM titles');
     if (n === 0) {

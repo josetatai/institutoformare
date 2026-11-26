@@ -20,9 +20,10 @@ export default async function Produtos() {
               <div className="adm-grid3">
                 <div className="fld"><label htmlFor={`n${p.id}`}>Nome</label><input id={`n${p.id}`} name="name" defaultValue={p.name} /></div>
                 <div className="fld"><label htmlFor={`c${p.id}`}>Link do checkout (botão Adquirir)</label><input id={`c${p.id}`} name="checkout_url" defaultValue={p.checkout_url || ''} placeholder="https://pay.kiwify.com.br/..." /></div>
+                <div className="fld"><label htmlFor={`v${p.id}`}>Valor pago que identifica esta regra (R$, opcional)</label><input id={`v${p.id}`} name="price" defaultValue={p.kiwify_price_cents ? (p.kiwify_price_cents / 100).toFixed(2).replace('.', ',') : ''} placeholder="Ex.: 67,00" /></div>
                 <div className="fld"><label htmlFor={`a${p.id}`}>Dias de acesso</label><input id={`a${p.id}`} name="access_days" type="number" min="1" defaultValue={p.access_days} /></div>
               </div>
-              <p className="adm-help">ID na Kiwify: {p.kiwify_product_id}{p.kiwify_offer_id ? ` · só a oferta ${p.kiwify_offer_id}` : ' · todas as ofertas'}</p>
+              <p className="adm-help">ID na Kiwify: {p.kiwify_product_id}{p.kiwify_offer_id ? ` · só a oferta ${p.kiwify_offer_id}` : p.kiwify_price_cents ? ` · só quando o valor pago for R$ ${(p.kiwify_price_cents / 100).toFixed(2).replace('.', ',')}` : ' · todas as ofertas'}</p>
               <div className="adm-table"><table>
                 <thead><tr><th>Libera</th><th>Título</th><th>Libera em (dias após a compra)</th></tr></thead>
                 <tbody>{titles.map((t) => {

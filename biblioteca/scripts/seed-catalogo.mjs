@@ -93,7 +93,7 @@ const PRODUCTS = [
   // vale para as duas ofertas (padrão R$ 97 e order bump R$ 87)
   { kid: 'f119b9a0-d01d-11f1-aba0-ffc08ad334e7', name: 'Livro Digital Completo Biblioteca da Contratação Pública + Bônus', checkout: 'https://pay.kiwify.com.br/uSmfO5o', titles: LIVRO_CT, buyFor: LIVRO_CT.map((x) => x[0]) },
   { kid: 'ade05fe0-d7ed-11f1-94de-a55929c22af7', name: 'Servidor 4.0: Livro Digital Completo + Bônus', checkout: 'https://pay.kiwify.com.br/CUbSxgL', titles: LIVRO_S4, buyFor: LIVRO_S4.map((x) => x[0]) },
-  { kid: 'ade05fe0-d7ed-11f1-94de-a55929c22af7', offer: 'c26eba88-8376-4199-8e43-2bf0d8bea393', name: 'Servidor 4.0: Upsell Coleção + 4 Apostilas', checkout: 'https://pay.kiwify.com.br/lgJhFhm', titles: [...LIVRO_S4, ...APOST_S4] },
+  { kid: 'ade05fe0-d7ed-11f1-94de-a55929c22af7', offer: 'c26eba88-8376-4199-8e43-2bf0d8bea393', price: 6700, name: 'Servidor 4.0: Upsell Coleção + 4 Apostilas', checkout: 'https://pay.kiwify.com.br/lgJhFhm', titles: [...LIVRO_S4, ...APOST_S4] },
   { kid: '060f1d20-d7f1-11f1-826a-61d1ef573c05', name: 'Servidor 4.0: Combo das 4 Apostilas', checkout: 'https://pay.kiwify.com.br/J2gxk8h', titles: APOST_S4, buyFor: APOST_S4.map((x) => x[0]) },
 ];
 
@@ -127,9 +127,9 @@ await db.execute("DELETE FROM titles WHERE slug IN ('contratacao-livro-completo'
 for (const p of PRODUCTS) {
   const offer = p.offer || '';
   await db.execute(
-    `INSERT INTO products (kiwify_product_id, kiwify_offer_id, name, checkout_url) VALUES (?, ?, ?, ?)
-     ON DUPLICATE KEY UPDATE name=VALUES(name), checkout_url=COALESCE(checkout_url, VALUES(checkout_url))`,
-    [p.kid, offer, p.name, p.checkout]
+    `INSERT INTO products (kiwify_product_id, kiwify_offer_id, name, checkout_url, kiwify_price_cents) VALUES (?, ?, ?, ?, ?)
+     ON DUPLICATE KEY UPDATE name=VALUES(name), checkout_url=COALESCE(checkout_url, VALUES(checkout_url)), kiwify_price_cents=COALESCE(kiwify_price_cents, VALUES(kiwify_price_cents))`,
+    [p.kid, offer, p.name, p.checkout, p.price || null]
   );
   const pid = await id('SELECT id FROM products WHERE kiwify_product_id = ? AND kiwify_offer_id = ?', [p.kid, offer]);
   for (const [slug, days] of p.titles) {
