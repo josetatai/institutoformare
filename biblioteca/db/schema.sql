@@ -41,13 +41,16 @@ CREATE TABLE IF NOT EXISTS collections (
   color1 VARCHAR(9) NULL, color2 VARCHAR(9) NULL, color3 VARCHAR(9) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Produtos da Kiwify (o que se compra)
+-- Produtos da Kiwify (o que se compra). Uma linha com oferta preenchida vale só para aquela oferta
+-- (ex.: upsell que entrega mais coisas); a linha com oferta vazia vale para as demais.
 CREATE TABLE IF NOT EXISTS products (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  kiwify_product_id VARCHAR(100) NOT NULL UNIQUE,
+  kiwify_product_id VARCHAR(100) NOT NULL,
+  kiwify_offer_id VARCHAR(100) NOT NULL DEFAULT '',  -- '' = qualquer oferta do produto
   name VARCHAR(255) NOT NULL,
   checkout_url VARCHAR(500) NULL,
-  access_days INT NOT NULL DEFAULT 365
+  access_days INT NOT NULL DEFAULT 365,
+  UNIQUE KEY uq_prod_offer (kiwify_product_id, kiwify_offer_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Títulos da biblioteca (o que se lê)

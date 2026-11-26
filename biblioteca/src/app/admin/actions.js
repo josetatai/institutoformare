@@ -87,10 +87,11 @@ export async function saveProduct(_prev, form) {
 export async function createProduct(_prev, form) {
   await requireAdmin();
   const kid = String(form.get('kiwify_product_id') || '').trim();
+  const offer = String(form.get('kiwify_offer_id') || '').trim();
   const name = String(form.get('name') || '').trim();
   if (!kid || !name) return { error: 'Informe o ID do produto na Kiwify e o nome.' };
-  if (await one('SELECT id FROM products WHERE kiwify_product_id = ?', [kid])) return { error: 'Este produto já está cadastrado.' };
-  await q('INSERT INTO products (kiwify_product_id, name) VALUES (?, ?)', [kid, name]);
+  if (await one('SELECT id FROM products WHERE kiwify_product_id = ? AND kiwify_offer_id = ?', [kid, offer])) return { error: 'Este produto (e oferta) já está cadastrado.' };
+  await q('INSERT INTO products (kiwify_product_id, kiwify_offer_id, name) VALUES (?, ?, ?)', [kid, offer, name]);
   revalidatePath('/admin/produtos');
   return { ok: 'Produto criado. Agora marque os títulos que ele libera.' };
 }

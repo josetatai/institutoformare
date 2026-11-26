@@ -22,7 +22,7 @@ export default async function Produtos() {
                 <div className="fld"><label htmlFor={`c${p.id}`}>Link do checkout (botão Adquirir)</label><input id={`c${p.id}`} name="checkout_url" defaultValue={p.checkout_url || ''} placeholder="https://pay.kiwify.com.br/..." /></div>
                 <div className="fld"><label htmlFor={`a${p.id}`}>Dias de acesso</label><input id={`a${p.id}`} name="access_days" type="number" min="1" defaultValue={p.access_days} /></div>
               </div>
-              <p className="adm-help">ID na Kiwify: {p.kiwify_product_id}</p>
+              <p className="adm-help">ID na Kiwify: {p.kiwify_product_id}{p.kiwify_offer_id ? ` · só a oferta ${p.kiwify_offer_id}` : ' · todas as ofertas'}</p>
               <div className="adm-table"><table>
                 <thead><tr><th>Libera</th><th>Título</th><th>Libera em (dias após a compra)</th></tr></thead>
                 <tbody>{titles.map((t) => {
@@ -43,6 +43,7 @@ export default async function Produtos() {
       <h2>Cadastrar produto novo da Kiwify</h2>
       <ActionForm action={createProduct} className="adm-box adm-grid3" submit="Cadastrar">
         <div className="fld"><label htmlFor="np-id">ID do produto na Kiwify</label><input id="np-id" name="kiwify_product_id" required /></div>
+        <div className="fld"><label htmlFor="np-offer">ID da oferta (só se ela entrega algo diferente)</label><input id="np-offer" name="kiwify_offer_id" /></div>
         <div className="fld"><label htmlFor="np-name">Nome</label><input id="np-name" name="name" required /></div>
       </ActionForm>
     </>

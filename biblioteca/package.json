@@ -11,7 +11,8 @@
     "start": "next start -p ${PORT:-3000}",
     "db:migrate": "node scripts/migrate.mjs",
     "db:catalogo": "node scripts/seed-catalogo.mjs",
-    "admin:criar": "node scripts/criar-admin.mjs"
+    "admin:criar": "node scripts/criar-admin.mjs",
+    "anexos:importar": "node scripts/importar-anexos.mjs"
   },
   "engines": {
     "node": ">=20"

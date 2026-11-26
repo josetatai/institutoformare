@@ -39,6 +39,7 @@ export function normalize(payload) {
     orderId: pick(p.order_id, p.id, p.order_ref) ? String(pick(p.order_id, p.id, p.order_ref)) : null,
     productId: pick(product.product_id, product.id, p.product_id) ? String(pick(product.product_id, product.id, p.product_id)) : null,
     productName: pick(product.product_name, product.name, null),
+    offerId: String(pick(product.product_offer_id, product.offer_id, p.offer_id, p.Offer?.offer_id, p.Offer?.id, '') || '') || null,
     email: String(pick(customer.email, p.customer_email, '') || '').trim().toLowerCase() || null,
     name: pick(customer.full_name, customer.name, p.customer_name, null),
     approvedAt: pick(p.approved_date, p.paid_at, p.updated_at, p.created_at, null),

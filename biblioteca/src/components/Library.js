@@ -62,7 +62,8 @@ function Shelf({ title, extra, items, onOpen, onBuy }) {
 
 function Detail({ t, onClose, onBuy }) {
   const owned = t.status === 'ok' || t.status === 'wait';
-  const [tab, setTab] = useState('sobre');
+  const kitOnly = !t.pageCount && t.anexos.length > 0;
+  const [tab, setTab] = useState(owned && kitOnly ? 'anexos' : 'sobre');
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     const k = (e) => e.key === 'Escape' && onClose();
@@ -89,7 +90,9 @@ function Detail({ t, onClose, onBuy }) {
             <div className={`status ${st[2]}`}>{st[0]} {st[1]}</div>
             {t.description && <p className="desc">{t.description}</p>}
             <div className="btns">
-              {t.status === 'ok' && <a className="btn pri" href={`/ler/${t.slug}`}>{I.play} {t.progressPage ? 'Continuar lendo' : 'Começar a ler'}</a>}
+              {t.status === 'ok' && t.pageCount > 0 && <a className="btn pri" href={`/ler/${t.slug}`}>{I.play} {t.progressPage ? 'Continuar lendo' : 'Começar a ler'}</a>}
+              {t.status === 'ok' && kitOnly && <button className="btn pri" onClick={() => setTab('anexos')}>{I.dl} Baixar arquivos</button>}
+              {t.status === 'ok' && !t.pageCount && !kitOnly && <span className="btn sec" style={{ cursor: 'default' }}>Conteúdo em preparação</span>}
               {t.status === 'wait' && <span className="btn sec" style={{ cursor: 'default', opacity: 0.85 }}>{I.clock} Disponível em {br(t.releaseAt)}</span>}
               {(t.status === 'lock' || t.status === 'expired') && <button className="btn buy" onClick={() => onBuy(t)}>{I.cart} {t.status === 'expired' ? 'Renovar acesso' : 'Adquirir'}</button>}
             </div>
@@ -146,7 +149,7 @@ export default function Library({ items, firstName, isAdmin }) {
       if (!c) cols.push((c = { ...t.collection, items: [] }));
       c.items.push(t);
     }
-    const hero = reading[0] || items.find((t) => t.status === 'ok') || items.find((t) => t.collection.isNew) || items[0];
+    const hero = reading[0] || items.find((t) => t.status === 'ok' && t.pageCount > 0) || items.find((t) => t.collection.isNew) || items[0];
     return { hero, reading, mine, collections: cols };
   }, [items]);
 
