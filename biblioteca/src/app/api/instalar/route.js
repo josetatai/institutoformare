@@ -47,6 +47,14 @@ export async function POST(req) {
   });
   try {
     await db.query(await fs.readFile(path.join(process.cwd(), 'db', 'schema.sql'), 'utf8'));
+    // bancos criados antes: acrescenta as colunas novas se faltarem
+    for (const [table, col, ddl] of [
+      ['webhook_events', 'raw_body', 'MEDIUMTEXT NULL'],
+      ['webhook_events', 'sig_received', 'VARCHAR(100) NULL'],
+    ]) {
+      const [[has]] = await db.query('SELECT COUNT(*) AS n FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = ? AND column_name = ?', [table, col]);
+      if (!has.n) { await db.query(`ALTER TABLE ${table} ADD COLUMN ${col} ${ddl}`); log.push(`coluna ${table}.${col} criada`); }
+    }
     log.push('tabelas ok');
     const [[{ n }]] = await db.query('SELECT COUNT(*) AS n FROM titles');
     if (n === 0) {

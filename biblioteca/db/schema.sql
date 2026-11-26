@@ -143,6 +143,8 @@ CREATE TABLE IF NOT EXISTS webhook_events (
   order_id VARCHAR(100) NULL,
   signature_ok TINYINT(1) NOT NULL DEFAULT 0,
   payload JSON NOT NULL,
+  raw_body MEDIUMTEXT NULL,               -- corpo exatamente como chegou (para conferir a assinatura)
+  sig_received VARCHAR(100) NULL,
   processed_at DATETIME NULL,
   error VARCHAR(500) NULL,
   INDEX (order_id), INDEX (processed_at)

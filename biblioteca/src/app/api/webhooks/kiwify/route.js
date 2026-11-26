@@ -15,10 +15,19 @@ export async function POST(req) {
   const ev = normalize(payload);
 
   // guarda tudo antes de qualquer decisão: nenhuma venda se perde
-  const ins = await q(
-    'INSERT INTO webhook_events (event_kind, event_raw_type, order_id, signature_ok, payload) VALUES (?, ?, ?, ?, ?)',
-    [ev.kind, ev.rawType, ev.orderId, sigOk ? 1 : 0, raw]
-  );
+  let ins;
+  try {
+    ins = await q(
+      'INSERT INTO webhook_events (event_kind, event_raw_type, order_id, signature_ok, payload, raw_body, sig_received) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [ev.kind, ev.rawType, ev.orderId, sigOk ? 1 : 0, raw, raw, signature ? String(signature).slice(0, 100) : null]
+    );
+  } catch {
+    // banco ainda sem as colunas novas: grava o essencial
+    ins = await q(
+      'INSERT INTO webhook_events (event_kind, event_raw_type, order_id, signature_ok, payload) VALUES (?, ?, ?, ?, ?)',
+      [ev.kind, ev.rawType, ev.orderId, sigOk ? 1 : 0, raw]
+    );
+  }
   const eventId = ins.insertId;
 
   if (!sigOk) {

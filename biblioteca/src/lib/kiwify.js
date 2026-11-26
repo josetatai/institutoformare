@@ -7,13 +7,30 @@ import crypto from 'node:crypto';
  * webhook_events, então um ajuste aqui permite reprocessar o que já chegou.
  */
 
-/** Confere a assinatura: HMAC-SHA1 do corpo bruto com o token, enviada em ?signature= */
+/*
+ * Assinatura: HMAC do corpo com o token, enviada em ?signature=. Conferimos o corpo exatamente como
+ * chegou e também o JSON recompactado (é como a documentação da Kiwify gera a assinatura), em SHA-1 e SHA-256.
+ */
+function candidates(rawBody) {
+  const out = [['corpo bruto', rawBody]];
+  try { out.push(['JSON recompactado', JSON.stringify(JSON.parse(rawBody))]); } catch { /* corpo não é JSON */ }
+  return out;
+}
+const hmac = (algo, token, data) => crypto.createHmac(algo, token).update(data).digest('hex');
+const same = (a, b) => { const x = Buffer.from(a), y = Buffer.from(String(b)); return x.length === y.length && crypto.timingSafeEqual(x, y); };
+
 export function verifySignature(rawBody, signature, token) {
   if (!token || !signature) return false;
-  const expected = crypto.createHmac('sha1', token).update(rawBody).digest('hex');
-  const a = Buffer.from(expected);
-  const b = Buffer.from(String(signature));
-  return a.length === b.length && crypto.timingSafeEqual(a, b);
+  return candidates(rawBody).some(([, data]) => ['sha1', 'sha256'].some((algo) => same(hmac(algo, token, data), signature)));
+}
+
+/** Para o painel: diz qual combinação bateu (ou que nenhuma bateu). */
+export function signatureReport(rawBody, signature, token) {
+  if (!signature) return 'o aviso veio sem assinatura';
+  if (!token) return 'token do webhook não salvo em Configurações';
+  const hit = [];
+  for (const [label, data] of candidates(rawBody)) for (const algo of ['sha1', 'sha256']) if (same(hmac(algo, token, data), signature)) hit.push(`${algo.toUpperCase()} do ${label}`);
+  return hit.length ? `confere (${hit.join(', ')})` : 'nenhuma combinação confere: o token salvo provavelmente não é o mesmo do webhook';
 }
 
 const pick = (...vals) => vals.find((v) => v !== undefined && v !== null && v !== '');
