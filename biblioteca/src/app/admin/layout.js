@@ -15,6 +15,7 @@ export default async function AdminLayout({ children }) {
             <a href="/admin/produtos">Produtos Kiwify</a>
             <a href="/admin/clientes">Clientes</a>
             <a href="/admin/avisos">Avisos da Kiwify</a>
+            <a href="/admin/configuracoes">Configurações</a>
           </nav>
           <div className="sp" />
           <a className="btn sec" href="/">Ver biblioteca</a>

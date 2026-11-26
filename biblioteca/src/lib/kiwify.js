@@ -8,7 +8,7 @@ import crypto from 'node:crypto';
  */
 
 /** Confere a assinatura: HMAC-SHA1 do corpo bruto com o token, enviada em ?signature= */
-export function verifySignature(rawBody, signature, token = process.env.KIWIFY_WEBHOOK_TOKEN) {
+export function verifySignature(rawBody, signature, token) {
   if (!token || !signature) return false;
   const expected = crypto.createHmac('sha1', token).update(rawBody).digest('hex');
   const a = Buffer.from(expected);

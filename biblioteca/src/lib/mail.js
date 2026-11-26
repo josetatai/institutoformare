@@ -1,21 +1,21 @@
 import nodemailer from 'nodemailer';
 
-let transport;
-function getTransport() {
-  if (!transport) {
-    transport = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT || 465),
-      secure: Number(process.env.SMTP_PORT || 465) === 465,
-      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASSWORD },
-    });
-  }
-  return transport;
+import { getSettings } from './settings';
+
+async function getTransport(cfg) {
+  if (!cfg.smtp_password) throw new Error('senha do e-mail não configurada (Painel → Configurações)');
+  return nodemailer.createTransport({
+    host: cfg.smtp_host,
+    port: Number(cfg.smtp_port || 465),
+    secure: Number(cfg.smtp_port || 465) === 465,
+    auth: { user: cfg.smtp_user, pass: cfg.smtp_password },
+  });
 }
 
 const APP = () => process.env.APP_URL || 'https://biblioteca.institutoformare.com.br';
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+let SUPPORT = 'suporte@institutoformare.com.br';
 function layout(title, bodyHtml) {
   return `<!doctype html><html><body style="margin:0;background:#f1f3f7;font-family:Arial,Helvetica,sans-serif;color:#1d2330">
 <table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:24px 12px">
@@ -24,7 +24,7 @@ function layout(title, bodyHtml) {
 <tr><td style="padding:28px">
 <h1 style="font-size:22px;margin:0 0 14px;color:#0f3f86">${esc(title)}</h1>
 ${bodyHtml}
-<p style="font-size:13px;color:#566074;margin-top:28px">Instituto Formare · Biblioteca</p>
+<p style="font-size:13px;color:#566074;margin-top:28px">Instituto Formare · Biblioteca<br>Dúvidas: ${esc(SUPPORT)}</p>
 </td></tr></table></td></tr></table></body></html>`;
 }
 
@@ -32,11 +32,22 @@ const button = (href, label) =>
   `<p style="margin:22px 0"><a href="${href}" style="background:#2f7df6;color:#fff;text-decoration:none;padding:13px 22px;border-radius:8px;font-weight:bold;display:inline-block">${esc(label)}</a></p>`;
 
 async function send(to, subject, html, text) {
-  await getTransport().sendMail({ from: process.env.MAIL_FROM, to, subject, html, text });
+  const cfg = await getSettings();
+  const t = await getTransport(cfg);
+  await t.sendMail({ from: cfg.mail_from, replyTo: cfg.support_email, to, subject, html, text: `${text}\n\nDúvidas: ${cfg.support_email}` });
+}
+
+/** Ajusta o rodapé com o e-mail de suporte antes de montar a mensagem. */
+async function prep() { SUPPORT = (await getSettings()).support_email; }
+
+export async function sendTest(to) {
+  await prep();
+  await send(to, 'Teste de envio · Biblioteca Formare', layout('Teste de envio', '<p>Se você recebeu esta mensagem, o envio de e-mails da biblioteca está funcionando.</p>'), 'O envio de e-mails da biblioteca está funcionando.');
 }
 
 /** Cliente novo: link + senha provisória. */
 export async function sendWelcome({ to, name, tempPassword, productName }) {
+  await prep();
   const link = `${APP()}/entrar`;
   const html = layout('Seu acesso à Biblioteca Formare', `
 <p>Olá${name ? ', ' + esc(name.split(' ')[0]) : ''}!</p>
@@ -52,6 +63,7 @@ ${button(link, 'Entrar na biblioteca')}
 
 /** Cliente que já tem conta: só o link. */
 export async function sendNewTitle({ to, name, productName }) {
+  await prep();
   const link = `${APP()}/entrar`;
   const html = layout('Novo conteúdo na sua biblioteca', `
 <p>Olá${name ? ', ' + esc(name.split(' ')[0]) : ''}!</p>
@@ -62,6 +74,7 @@ ${button(link, 'Abrir minha biblioteca')}`);
 }
 
 export async function sendPasswordReset({ to, token }) {
+  await prep();
   const link = `${APP()}/redefinir?token=${encodeURIComponent(token)}`;
   const html = layout('Criar nova senha', `
 <p>Recebemos um pedido para criar uma nova senha da sua biblioteca.</p>

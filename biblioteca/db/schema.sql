@@ -147,3 +147,10 @@ CREATE TABLE IF NOT EXISTS webhook_events (
   error VARCHAR(500) NULL,
   INDEX (order_id), INDEX (processed_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Configurações editadas pelo painel (senha do e-mail, token do webhook etc.)
+CREATE TABLE IF NOT EXISTS settings (
+  k VARCHAR(60) PRIMARY KEY,
+  v TEXT NULL,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

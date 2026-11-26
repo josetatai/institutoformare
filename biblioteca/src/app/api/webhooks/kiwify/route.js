@@ -1,13 +1,14 @@
 import { q } from '@/lib/db';
 import { verifySignature, normalize } from '@/lib/kiwify';
 import { applyEvent } from '@/lib/grants';
+import { getSettings } from '@/lib/settings';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(req) {
   const raw = await req.text();
   const signature = new URL(req.url).searchParams.get('signature');
-  const sigOk = verifySignature(raw, signature);
+  const sigOk = verifySignature(raw, signature, (await getSettings()).kiwify_token);
 
   let payload;
   try { payload = JSON.parse(raw); } catch { return Response.json({ error: 'corpo inválido' }, { status: 400 }); }

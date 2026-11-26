@@ -163,3 +163,24 @@ export async function extendGrant(form) {
   await q('UPDATE grants SET expires_at = DATE_ADD(expires_at, INTERVAL ? DAY), revoked_at = NULL WHERE id = ?', [Math.max(1, int(form.get('days'), 30)), int(form.get('id'))]);
   revalidatePath('/admin/clientes');
 }
+
+// Configurações ---------------------------------------------------------------
+
+export async function saveSettings(_prev, form) {
+  await requireAdmin();
+  const { setSetting, SECRET_KEYS } = await import('@/lib/settings');
+  for (const k of ['smtp_host', 'smtp_port', 'smtp_user', 'mail_from', 'support_email', 'smtp_password', 'kiwify_token']) {
+    const v = String(form.get(k) ?? '').trim();
+    if (SECRET_KEYS.includes(k) && !v) continue; // campo secreto vazio = manter o que está salvo
+    await setSetting(k, v);
+  }
+  revalidatePath('/admin/configuracoes');
+  return { ok: 'Configurações salvas.' };
+}
+
+export async function sendTestEmail(_prev, form) {
+  const u = await requireAdmin();
+  const { sendTest } = await import('@/lib/mail');
+  try { await sendTest(String(form.get('to') || u.email)); return { ok: `E-mail de teste enviado para ${form.get('to') || u.email}. Confira a caixa de entrada e o spam.` }; }
+  catch (e) { return { error: `Não foi possível enviar: ${e.message}` }; }
+}

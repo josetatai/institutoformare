@@ -203,6 +203,7 @@ export default function Library({ items, firstName, isAdmin }) {
         {collections.map((c) => (
           <Shelf key={c.slug} title={c.name} items={c.items} onOpen={setOpen} onBuy={buy} extra={c.isNew ? <> <span className="tag">Nova coleção</span></> : null} />
         ))}
+        <p className="adm-help" style={{ marginTop: 48, textAlign: 'center' }}>Precisa de ajuda? Escreva para suporte@institutoformare.com.br</p>
       </main>
 
       {open && <Detail t={open} onClose={() => setOpen(null)} onBuy={buy} />}
