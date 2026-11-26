@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Termos de Uso | Instituto Formare</title>
+<meta name="description" content="Termos de uso e licença do Volume 1 · DP Público, da Coleção Gestão Pública na Era da IA.">
+<meta name="theme-color" content="#13285A">
+<link rel="canonical" href="https://land.institutoformare.com.br/colecao-gestao-era-ia/rh-dp/termos.html">
+<meta name="robots" content="noindex, follow">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>
+  if (window.tailwind) tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy:  { DEFAULT: '#13285A', 700: '#0E1F47', 900: '#0A1633' },
+          leaf:  { DEFAULT: '#1B8A3A', 600: '#167530', 50: '#E9F7EE' },
+          sky:   { DEFAULT: '#1F6FE0', 50: '#EAF2FF' },
+          cream: { DEFAULT: '#FBF6EC', 200: '#F4ECDB' },
+          mint:  { DEFAULT: '#D3F1E3', 300: '#A9E4CA' },
+          coral: { DEFAULT: '#E9573A' },
+          sun:   { DEFAULT: '#F7B928' }
+        },
+        fontFamily: {
+          display: ['Anton', 'Impact', 'sans-serif'],
+          sans: ['Inter', 'system-ui', 'sans-serif']
+        },
+        boxShadow: {
+          soft: '0 10px 30px -12px rgba(19,40,90,.25)',
+          lift: '0 22px 45px -18px rgba(19,40,90,.35)',
+          btn:  '0 10px 24px -8px rgba(27,138,58,.55)'
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background: #FBF6EC; color: #1d2b4a; -webkit-font-smoothing: antialiased; }
+  .font-display { letter-spacing: .01em; line-height: 1.02; text-transform: uppercase; }
+
+  /* fundo com bolhas menta, no padrão da capa */
+  .blob { position: absolute; border-radius: 9999px; filter: blur(2px); pointer-events: none; z-index: 0; }
+
+  /* botão principal */
+  .btn-cta {
+    display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+    background: linear-gradient(180deg, #22A046 0%, #1B8A3A 100%);
+    color: #fff; font-weight: 800; border-radius: 9999px;
+    padding: 1.05rem 1.9rem; font-size: 1.05rem; line-height: 1.2; text-align: center;
+    box-shadow: 0 10px 24px -8px rgba(27,138,58,.55), inset 0 -3px 0 rgba(0,0,0,.12);
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+  }
+  .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -10px rgba(27,138,58,.65), inset 0 -3px 0 rgba(0,0,0,.12); filter: brightness(1.04); }
+  .btn-cta:active { transform: translateY(0); }
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 3px solid #F7B928; outline-offset: 3px; border-radius: 12px;
+  }
+  .btn-cta:focus-visible { border-radius: 9999px; }
+
+  .card { background: #fff; border-radius: 1.5rem; box-shadow: 0 10px 30px -12px rgba(19,40,90,.22); transition: transform .25s ease, box-shadow .25s ease; }
+  .card-hover:hover { transform: translateY(-4px); box-shadow: 0 22px 45px -18px rgba(19,40,90,.35); }
+
+  /* ícones "3D" */
+  .ico { display: grid; place-items: center; border-radius: 1.1rem; box-shadow: inset 0 -4px 0 rgba(0,0,0,.10), 0 8px 18px -8px rgba(19,40,90,.45); }
+
+  /* faixa de selo (como na cartilha) */
+  .ribbon { clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%); }
+
+  /* animação de entrada */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.is-in { opacity: 1; transform: none; }
+  .float { animation: float 6s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(-2deg); } }
+
+  /* galeria */
+  .gallery { scroll-snap-type: x mandatory; scrollbar-width: thin; }
+  .gallery > * { scroll-snap-align: center; }
+
+  /* FAQ */
+  details summary { list-style: none; cursor: pointer; }
+  details summary::-webkit-details-marker { display: none; }
+  details[open] .chev { transform: rotate(45deg); }
+  .chev { transition: transform .25s ease; }
+
+  /* barra fixa mobile */
+  #sticky { transform: translateY(110%); transition: transform .35s ease; }
+  #sticky.show { transform: none; }
+
+
+  /* lista de arquivos editáveis */
+  .file { display: flex; gap: .85rem; align-items: flex-start; background: #F6FAF8; border-radius: 1rem; padding: .8rem .9rem; color: rgba(19,40,90,.85); font-size: 15px; }
+  .file strong { color: #13285A; }
+  .fi { flex-shrink: 0; width: 2.6rem; height: 3.1rem; border-radius: .55rem; display: grid; place-items: end center; padding-bottom: .35rem; font-size: 9px; font-weight: 800; color: #fff; letter-spacing: .03em; box-shadow: inset 0 -3px 0 rgba(0,0,0,.12), 0 6px 14px -8px rgba(19,40,90,.5); clip-path: polygon(0 0, 70% 0, 100% 22%, 100% 100%, 0 100%); }
+  .fi.docx { background: linear-gradient(180deg,#3A86F0,#1F5FC8); }
+  .fi.xlsx { background: linear-gradient(180deg,#26A65B,#167530); }
+  .fi.doc  { background: linear-gradient(180deg,#5B8FD9,#13285A); }
+  dialog::backdrop { background: rgba(10,22,51,.82); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .float { animation: none; transform: rotate(-2deg); }
+    .btn-cta, .card, #sticky, .chev { transition: none; }
+    .btn-cta:hover, .card-hover:hover { transform: none; }
+  }
+  .legal h2 { font-family: Anton, Impact, sans-serif; text-transform: uppercase; color: #13285A; font-size: 1.6rem; line-height: 1.1; margin-top: 2.2rem; letter-spacing: .01em; }
+  .legal p, .legal li { color: rgba(19,40,90,.85); margin-top: .75rem; line-height: 1.65; }
+  .legal ul { list-style: disc; padding-left: 1.3rem; }
+  .legal strong { color: #13285A; }
+  .legal a { color: #167530; text-decoration: underline; text-underline-offset: 3px; }
+</style>
+</head>
+<body class="font-sans">
+<header class="relative z-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+    <a href="./" class="block" aria-label="Voltar para a página da coleção"><img src="img/logo-formare.webp" alt="Instituto Formare" width="385" height="90" class="h-10 sm:h-12 w-auto"></a>
+    <a href="./" class="text-sm font-semibold text-navy underline underline-offset-4 whitespace-nowrap">← Voltar</a>
+  </div>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6"><div class="h-[3px] rounded-full bg-gradient-to-r from-navy via-sky to-transparent"></div></div>
+</header>
+<main class="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+  <article class="card p-6 sm:p-10 legal">
+    <p class="text-leaf font-bold uppercase tracking-wider text-sm">Instituto Formare</p>
+    <h1 class="font-display text-4xl sm:text-5xl text-navy mt-2">Termos de Uso</h1>
+    <p class="text-sm">Última atualização: novembro de 2026.</p>
+
+    <p>Estes termos valem para o uso desta página e para a compra do <strong>Volume 1 · DP Público: do Ingresso ao Desligamento, da Coleção Gestão Pública na Era da IA (Trilha Gestão Administrativa)</strong> e, quando adquiridos no mesmo pedido, dos Volumes 2 e 3 da mesma trilha, oferecidos pelo Instituto Formare (nome fantasia) · ZT Soluções · CNPJ 13.978.889/0001-28.</p>
+
+    <h2>1. O produto</h2>
+    <p>Produto 100% digital: livro em PDF, 9 modelos editáveis em Word e Excel e pacote de 88 comandos de IA. Os Volumes 2 e 3, quando adquiridos no checkout, também são digitais, com livro em PDF, modelos editáveis, planilhas e comandos de IA. Não há envio de material físico.</p>
+
+    <h2>2. Compra e acesso</h2>
+    <p>A compra é feita pela <strong>Kiwify</strong>, que processa o pagamento e envia por e-mail o acesso à área de membros, onde os arquivos ficam disponíveis para download. As formas de pagamento são as exibidas no checkout. O acesso é pessoal e não pode ser compartilhado.</p>
+
+    <h2>3. Garantia e reembolso</h2>
+    <p>Você tem <strong>7 dias de garantia</strong>, contados da compra, conforme o Código de Defesa do Consumidor (art. 49) e as regras da Kiwify. O pedido de reembolso é feito pela própria Kiwify dentro desse prazo.</p>
+
+    <h2>4. Licença de uso</h2>
+    <p>Os livros e os modelos são protegidos pela Lei nº 9.610/1998 (Lei de Direitos Autorais). A compra dá a você uma licença pessoal de uso.</p>
+    <p><strong>Você pode:</strong> usar o conteúdo no seu trabalho, aplicar os modelos nos processos do órgão ou entidade em que atua e adaptar os textos aos casos concretos da sua rotina.</p>
+    <p><strong>Você não pode, sem autorização por escrito:</strong> reproduzir ou revender o material, no todo ou em parte; compartilhá-lo em grupos, redes sociais, drives ou repositórios abertos; usá-lo como apostila de cursos, treinamentos ou mentorias; ou apresentá-lo como obra própria.</p>
+    <p>Pedidos de autorização: <a href="mailto:contato@institutoformare.com.br">contato@institutoformare.com.br</a>.</p>
+
+    <h2>5. Natureza do material</h2>
+    <p>O material tem finalidade educativa e de apoio técnico. Ele <strong>não substitui</strong> o parecer jurídico do órgão, a análise da assessoria jurídica nem a decisão da autoridade competente, que continuam responsáveis pelo processo. Os modelos são ponto de partida e devem ser adaptados às normas e aos dados do seu órgão.</p>
+    <p>O texto cita a legislação e a jurisprudência listadas nos anexos de cada livro. Mudanças posteriores na lei, em regulamentos ou na jurisprudência devem ser conferidas por quem usa o material.</p>
+
+    <h2>6. Uso de inteligência artificial</h2>
+    <p>A segunda metade de cada capítulo e o pacote de comandos trazem comandos (prompts) para ferramentas de IA de terceiros. O uso dessas ferramentas segue os termos de cada uma. Todo texto gerado com IA precisa ser conferido e assumido por um servidor responsável antes de entrar no processo.</p>
+
+    <h2>7. Dados pessoais</h2>
+    <p>O tratamento de dados pessoais está descrito na <a href="privacidade.html">Política de Privacidade</a>.</p>
+
+    <h2>8. Contato</h2>
+    <p>Dúvidas e suporte: <a href="mailto:contato@institutoformare.com.br">contato@institutoformare.com.br</a>.</p>
+
+    <h2>9. Foro</h2>
+    <p>Fica eleito o foro do domicílio do consumidor, nos termos do Código de Defesa do Consumidor.</p>
+
+  </article>
+</main>
+<footer class="bg-navy-900 text-white/75">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 text-sm space-y-2 text-center">
+    <p class="text-white font-semibold">Instituto Formare</p>
+    <p>Instituto Formare (nome fantasia) · ZT Soluções · CNPJ 13.978.889/0001-28</p>
+    <p><a href="mailto:contato@institutoformare.com.br" class="underline underline-offset-4 hover:text-white">contato@institutoformare.com.br</a> · <a href="privacidade.html" class="underline underline-offset-4 hover:text-white">Política de Privacidade</a> · <a href="termos.html" class="underline underline-offset-4 hover:text-white">Termos de Uso</a></p>
+    <p class="text-white/50">© 2026 Instituto Formare. Todos os direitos reservados.</p>
+  </div>
+</footer>
+</body>
+</html>

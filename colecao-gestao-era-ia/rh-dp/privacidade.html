@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de Privacidade | Instituto Formare</title>
+<meta name="description" content="Como o Instituto Formare trata dados pessoais na página e na venda dos livros da Coleção Gestão Pública na Era da IA.">
+<meta name="theme-color" content="#13285A">
+<link rel="canonical" href="https://land.institutoformare.com.br/colecao-gestao-era-ia/rh-dp/privacidade.html">
+<meta name="robots" content="noindex, follow">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>
+  if (window.tailwind) tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy:  { DEFAULT: '#13285A', 700: '#0E1F47', 900: '#0A1633' },
+          leaf:  { DEFAULT: '#1B8A3A', 600: '#167530', 50: '#E9F7EE' },
+          sky:   { DEFAULT: '#1F6FE0', 50: '#EAF2FF' },
+          cream: { DEFAULT: '#FBF6EC', 200: '#F4ECDB' },
+          mint:  { DEFAULT: '#D3F1E3', 300: '#A9E4CA' },
+          coral: { DEFAULT: '#E9573A' },
+          sun:   { DEFAULT: '#F7B928' }
+        },
+        fontFamily: {
+          display: ['Anton', 'Impact', 'sans-serif'],
+          sans: ['Inter', 'system-ui', 'sans-serif']
+        },
+        boxShadow: {
+          soft: '0 10px 30px -12px rgba(19,40,90,.25)',
+          lift: '0 22px 45px -18px rgba(19,40,90,.35)',
+          btn:  '0 10px 24px -8px rgba(27,138,58,.55)'
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background: #FBF6EC; color: #1d2b4a; -webkit-font-smoothing: antialiased; }
+  .font-display { letter-spacing: .01em; line-height: 1.02; text-transform: uppercase; }
+
+  /* fundo com bolhas menta, no padrão da capa */
+  .blob { position: absolute; border-radius: 9999px; filter: blur(2px); pointer-events: none; z-index: 0; }
+
+  /* botão principal */
+  .btn-cta {
+    display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+    background: linear-gradient(180deg, #22A046 0%, #1B8A3A 100%);
+    color: #fff; font-weight: 800; border-radius: 9999px;
+    padding: 1.05rem 1.9rem; font-size: 1.05rem; line-height: 1.2; text-align: center;
+    box-shadow: 0 10px 24px -8px rgba(27,138,58,.55), inset 0 -3px 0 rgba(0,0,0,.12);
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+  }
+  .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -10px rgba(27,138,58,.65), inset 0 -3px 0 rgba(0,0,0,.12); filter: brightness(1.04); }
+  .btn-cta:active { transform: translateY(0); }
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 3px solid #F7B928; outline-offset: 3px; border-radius: 12px;
+  }
+  .btn-cta:focus-visible { border-radius: 9999px; }
+
+  .card { background: #fff; border-radius: 1.5rem; box-shadow: 0 10px 30px -12px rgba(19,40,90,.22); transition: transform .25s ease, box-shadow .25s ease; }
+  .card-hover:hover { transform: translateY(-4px); box-shadow: 0 22px 45px -18px rgba(19,40,90,.35); }
+
+  /* ícones "3D" */
+  .ico { display: grid; place-items: center; border-radius: 1.1rem; box-shadow: inset 0 -4px 0 rgba(0,0,0,.10), 0 8px 18px -8px rgba(19,40,90,.45); }
+
+  /* faixa de selo (como na cartilha) */
+  .ribbon { clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%); }
+
+  /* animação de entrada */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.is-in { opacity: 1; transform: none; }
+  .float { animation: float 6s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(-2deg); } }
+
+  /* galeria */
+  .gallery { scroll-snap-type: x mandatory; scrollbar-width: thin; }
+  .gallery > * { scroll-snap-align: center; }
+
+  /* FAQ */
+  details summary { list-style: none; cursor: pointer; }
+  details summary::-webkit-details-marker { display: none; }
+  details[open] .chev { transform: rotate(45deg); }
+  .chev { transition: transform .25s ease; }
+
+  /* barra fixa mobile */
+  #sticky { transform: translateY(110%); transition: transform .35s ease; }
+  #sticky.show { transform: none; }
+
+
+  /* lista de arquivos editáveis */
+  .file { display: flex; gap: .85rem; align-items: flex-start; background: #F6FAF8; border-radius: 1rem; padding: .8rem .9rem; color: rgba(19,40,90,.85); font-size: 15px; }
+  .file strong { color: #13285A; }
+  .fi { flex-shrink: 0; width: 2.6rem; height: 3.1rem; border-radius: .55rem; display: grid; place-items: end center; padding-bottom: .35rem; font-size: 9px; font-weight: 800; color: #fff; letter-spacing: .03em; box-shadow: inset 0 -3px 0 rgba(0,0,0,.12), 0 6px 14px -8px rgba(19,40,90,.5); clip-path: polygon(0 0, 70% 0, 100% 22%, 100% 100%, 0 100%); }
+  .fi.docx { background: linear-gradient(180deg,#3A86F0,#1F5FC8); }
+  .fi.xlsx { background: linear-gradient(180deg,#26A65B,#167530); }
+  .fi.doc  { background: linear-gradient(180deg,#5B8FD9,#13285A); }
+  dialog::backdrop { background: rgba(10,22,51,.82); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .float { animation: none; transform: rotate(-2deg); }
+    .btn-cta, .card, #sticky, .chev { transition: none; }
+    .btn-cta:hover, .card-hover:hover { transform: none; }
+  }
+  .legal h2 { font-family: Anton, Impact, sans-serif; text-transform: uppercase; color: #13285A; font-size: 1.6rem; line-height: 1.1; margin-top: 2.2rem; letter-spacing: .01em; }
+  .legal p, .legal li { color: rgba(19,40,90,.85); margin-top: .75rem; line-height: 1.65; }
+  .legal ul { list-style: disc; padding-left: 1.3rem; }
+  .legal strong { color: #13285A; }
+  .legal a { color: #167530; text-decoration: underline; text-underline-offset: 3px; }
+</style>
+</head>
+<body class="font-sans">
+<header class="relative z-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+    <a href="./" class="block" aria-label="Voltar para a página da coleção"><img src="img/logo-formare.webp" alt="Instituto Formare" width="385" height="90" class="h-10 sm:h-12 w-auto"></a>
+    <a href="./" class="text-sm font-semibold text-navy underline underline-offset-4 whitespace-nowrap">← Voltar</a>
+  </div>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6"><div class="h-[3px] rounded-full bg-gradient-to-r from-navy via-sky to-transparent"></div></div>
+</header>
+<main class="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
+  <article class="card p-6 sm:p-10 legal">
+    <p class="text-leaf font-bold uppercase tracking-wider text-sm">Instituto Formare</p>
+    <h1 class="font-display text-4xl sm:text-5xl text-navy mt-2">Política de Privacidade</h1>
+    <p class="text-sm">Última atualização: novembro de 2026.</p>
+
+    <p>Esta política explica como o Instituto Formare trata dados pessoais na página do Volume 1 · DP Público, da Coleção Gestão Pública na Era da IA, e na venda dos livros dessa coleção, em conformidade com a Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018, LGPD).</p>
+
+    <h2>1. Quem é o controlador</h2>
+    <p><strong>Instituto Formare</strong> (nome fantasia) · ZT Soluções · CNPJ 13.978.889/0001-28. Contato para assuntos de privacidade: <a href="mailto:contato@institutoformare.com.br">contato@institutoformare.com.br</a>.</p>
+
+    <h2>2. O que esta página coleta</h2>
+    <p>Esta página é informativa. Ela <strong>não tem formulários</strong> e não pede seus dados.</p>
+    <p><strong>Pixel da Meta.</strong> A página usa o Pixel da Meta (Facebook e Instagram) para medir quantas pessoas a visitam, até que parte da página chegam, quanto tempo ficam e quantas clicam no botão de compra, e para melhorar nossos anúncios. O Pixel usa cookies e envia à Meta dados técnicos da visita, como endereço IP, navegador, página acessada, de qual anúncio ou link a pessoa veio e essas ações na página. Além do Pixel, a própria página registra, num banco de dados do Instituto Formare, as mesmas informações de navegação (páginas vistas, seções, tempo, cliques, origem e tipo de aparelho), identificadas apenas por um código anônimo gerado no seu navegador. Não guardamos o seu endereço IP. As etiquetas do link de origem (por exemplo, de qual campanha você veio) também são repassadas ao checkout da Kiwify, para sabermos qual divulgação gerou cada venda. Não enviamos à Meta seu nome, e-mail ou outros dados que identifiquem você diretamente. O tratamento pela Meta segue a política de privacidade dela. Você pode limitar esse uso nas configurações de anúncios da sua conta Meta ou bloqueando cookies no navegador.</p>
+    <p>Como em qualquer site, o servidor de hospedagem (Hostinger) registra dados técnicos de acesso, como endereço IP, data e hora, navegador e página acessada. Esses registros servem para segurança e funcionamento do site.</p>
+    <p>Para exibir fontes e estilos, a página carrega arquivos de serviços de terceiros (Google Fonts e Tailwind CSS). Esses serviços recebem dados técnicos da sua conexão, como o endereço IP, conforme as políticas de privacidade deles.</p>
+
+    <h2>3. Dados da compra</h2>
+    <p>Ao clicar em comprar, você vai para o checkout da <strong>Kiwify</strong>, plataforma que processa o pagamento e entrega o acesso à área de membros. Os dados informados no checkout (como nome, e-mail, CPF e dados de pagamento) são tratados pela Kiwify, conforme a política de privacidade dela.</p>
+    <p>O Instituto Formare recebe da Kiwify e guarda em seu painel interno, protegido por senha, as informações necessárias para identificar a compra e atender você: <strong>nome, e-mail, WhatsApp</strong>, produto, valor, forma de pagamento, situação do pedido e a origem da visita. <strong>Não guardamos CPF nem endereço</strong> e não temos acesso aos dados do seu cartão.</p>
+
+    <h2>4. Para que usamos os dados</h2>
+    <ul>
+      <li>liberar e manter o seu acesso ao produto comprado;</li>
+      <li>responder dúvidas e pedidos de suporte;</li>
+      <li>entrar em contato, por WhatsApp ou e-mail, com quem iniciou uma compra e não concluiu o pagamento, para ajudar a finalizar;</li>
+      <li>tratar pedidos de reembolso dentro da garantia;</li>
+      <li>cumprir obrigações legais, fiscais e contábeis;</li>
+      <li>medir as visitas à página e melhorar os anúncios;</li>
+      <li>enviar comunicações sobre o produto e, se você permitir, sobre novos materiais. Você pode cancelar o recebimento a qualquer momento.</li>
+    </ul>
+    <p>As bases legais são a execução do contrato de compra, o cumprimento de obrigação legal, o legítimo interesse (segurança, suporte e medição dos acessos à página) e, para comunicações de divulgação, o seu consentimento.</p>
+
+    <h2>5. Com quem compartilhamos</h2>
+    <p>Não vendemos dados pessoais. Os dados são compartilhados apenas com quem é necessário para o serviço funcionar: a Kiwify (pagamento e área de membros), a Hostinger (hospedagem e e-mail), a Meta (medição de visitas e anúncios) e, quando exigido, autoridades públicas, nos termos da lei.</p>
+
+    <h2>6. Por quanto tempo guardamos</h2>
+    <p>Guardamos os dados enquanto houver relação com você e pelo prazo necessário para cumprir obrigações legais e para o exercício de direitos em eventual processo. Depois disso, os dados são eliminados ou anonimizados.</p>
+
+    <h2>7. Seus direitos</h2>
+    <p>Pela LGPD, você pode pedir: confirmação de que tratamos seus dados, acesso, correção, anonimização, bloqueio ou eliminação de dados desnecessários, portabilidade, informação sobre compartilhamento e revogação do consentimento. Basta escrever para <a href="mailto:contato@institutoformare.com.br">contato@institutoformare.com.br</a>. Você também pode reclamar à Autoridade Nacional de Proteção de Dados (ANPD).</p>
+
+    <h2>8. Segurança</h2>
+    <p>A página usa conexão segura (HTTPS). Adotamos medidas razoáveis para proteger os dados contra acesso não autorizado, perda ou alteração.</p>
+
+    <h2>9. Mudanças nesta política</h2>
+    <p>Esta política pode ser atualizada. A data da última versão fica no topo desta página.</p>
+
+  </article>
+</main>
+<footer class="bg-navy-900 text-white/75">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 text-sm space-y-2 text-center">
+    <p class="text-white font-semibold">Instituto Formare</p>
+    <p>Instituto Formare (nome fantasia) · ZT Soluções · CNPJ 13.978.889/0001-28</p>
+    <p><a href="mailto:contato@institutoformare.com.br" class="underline underline-offset-4 hover:text-white">contato@institutoformare.com.br</a> · <a href="privacidade.html" class="underline underline-offset-4 hover:text-white">Política de Privacidade</a> · <a href="termos.html" class="underline underline-offset-4 hover:text-white">Termos de Uso</a></p>
+    <p class="text-white/50">© 2026 Instituto Formare. Todos os direitos reservados.</p>
+  </div>
+</footer>
+</body>
+</html>
