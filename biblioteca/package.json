@@ -1,0 +1,22 @@
+{
+  "name": "biblioteca-formare",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Biblioteca de e-books do Instituto Formare: leitura em flipbook, anexos e acesso integrado à Kiwify.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -p ${PORT:-3000}",
+    "db:migrate": "node scripts/migrate.mjs",
+    "db:catalogo": "node scripts/seed-catalogo.mjs"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "mysql2": "^3.14.0",
+    "next": "^15.5.0",
+    "nodemailer": "^6.10.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}
