@@ -53,7 +53,7 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;backgroun
 .btn.buy:hover{background:var(--accent-strong)}
 .btn svg{width:18px;height:18px}
 .hero .art{display:flex;justify-content:center}
-.hero .art .cv{width:min(270px,70vw);aspect-ratio:3/4;font-size:15px;box-shadow:0 30px 60px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.06);transform:rotate(-3deg)}
+.hero .art .cv{width:min(270px,70vw);aspect-ratio:210/297;font-size:15px;box-shadow:0 30px 60px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.06);transform:rotate(-3deg)}
 @media(max-width:760px){.hero .in{grid-template-columns:1fr;padding-block:24px 32px}.hero .art{order:-1}.hero .art .cv{width:170px}}
 
 /* shelves */
@@ -73,7 +73,7 @@ main{padding-block:12px 64px}
 
 .card{flex:0 0 auto;width:178px;scroll-snap-align:start;display:flex;flex-direction:column;gap:8px}
 @media(min-width:900px){.card{width:200px}}
-.thumb{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:3/4;background:var(--surface);transition:transform .2s ease,box-shadow .2s;cursor:pointer}
+.thumb{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:210/297;background:var(--surface);transition:transform .2s ease,box-shadow .2s;cursor:pointer}
 .thumb:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.5)}
 .thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .thumb .cv{width:100%;height:100%;border-radius:0}
@@ -232,3 +232,38 @@ a.btn{text-decoration:none}
 .ic{display:contents}
 .hero .art img{width:min(270px,70vw);border-radius:10px;box-shadow:0 30px 60px rgba(0,0,0,.55);transform:rotate(-3deg)}
 @media(max-width:760px){.hero .art img{width:170px}}
+
+/* painel */
+.adm{padding-block:28px 80px}
+.adm h1{font-family:var(--display);font-size:28px;margin:0 0 8px}
+.adm h2{font-family:var(--display);font-size:18px;margin:22px 0 12px}
+.adm-box h2{margin-top:0}
+.adm-nav{gap:18px;font-size:14px}
+.adm-nav a{color:var(--muted);text-decoration:none}
+.adm-nav a:hover{color:var(--fg)}
+@media(max-width:800px){.adm-nav{display:none!important}}
+.adm-help{color:var(--muted);font-size:13.5px;margin:4px 0 14px}
+.adm-warn{color:var(--wait)}
+.adm-back{color:var(--accent-strong);text-decoration:none;font-size:14px}
+.adm-box{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:18px}
+.adm-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:18px}
+@media(max-width:800px){.adm-two{grid-template-columns:1fr}}
+.adm-grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 16px}
+.adm-grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0 16px;align-items:end}
+.adm .fld select,.adm .fld textarea,.adm input:not([type=checkbox]):not([type=file]),.adm select{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;color:var(--fg);font:inherit}
+.adm .fld textarea{resize:vertical}
+.adm-check{display:flex;gap:8px;align-items:center;font-size:14px;padding-block:12px}
+.adm-table{overflow-x:auto;margin-bottom:14px}
+.adm-table table{width:100%;border-collapse:collapse;font-size:14px}
+.adm-table th,.adm-table td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+.adm-table th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.adm-table a{color:var(--fg);text-decoration:none}
+.adm-thumb{width:46px;height:62px;object-fit:cover;border-radius:4px;display:grid;place-items:center;background:var(--surface2);font-size:10px;color:var(--muted)}
+.adm-cover{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.adm-cover-img{width:180px;aspect-ratio:210/297;border-radius:8px;overflow:hidden;background:var(--surface2);display:grid;place-items:center;color:var(--muted)}
+.adm-cover-img img{width:100%;height:100%;object-fit:cover}
+.adm-inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.adm-del{color:#ff9a9a}
+.adm-list{margin:0;padding-left:18px;font-size:14px;line-height:1.7}
+.adm-prod summary{cursor:pointer;font-size:15px}
+.adm-prod[open] summary{margin-bottom:14px}

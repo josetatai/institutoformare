@@ -26,6 +26,8 @@ const min = (a) => new Date(Math.min(...a.map((d) => +new Date(d))));
 /** Catálogo completo com a situação de cada título para o usuário. */
 export async function catalogFor(userId) {
   const now = new Date();
+  // administrador vê e lê tudo, para conferir o conteúdo
+  const isAdmin = !!(await q('SELECT is_admin FROM users WHERE id = ?', [userId]))[0]?.is_admin;
   const titles = await q(
     `SELECT t.*, c.slug AS col_slug, c.name AS col_name, c.sort AS col_sort, c.is_new AS col_new,
             c.color1, c.color2, c.color3, p.checkout_url
@@ -40,7 +42,9 @@ export async function catalogFor(userId) {
   const atts = await q('SELECT * FROM attachments ORDER BY sort, id');
 
   return titles.map((t) => {
-    const st = titleStatus(grants.filter((g) => g.title_id === t.id), now);
+    const st = isAdmin
+      ? { status: 'ok', expiresAt: null, grants: [{ release_at: now, starts_at: new Date(0) }] }
+      : titleStatus(grants.filter((g) => g.title_id === t.id), now);
     const pr = progress.find((p) => p.title_id === t.id);
     const anexos = atts
       .filter((a) => a.title_id === t.id)
@@ -71,6 +75,7 @@ export async function catalogFor(userId) {
 
 /** Acesso de leitura a um título (para servir páginas e anexos). */
 export async function canRead(userId, titleId) {
+  if ((await q('SELECT is_admin FROM users WHERE id = ?', [userId]))[0]?.is_admin) return true;
   const grants = await q('SELECT * FROM grants WHERE user_id = ? AND title_id = ?', [userId, titleId]);
   return titleStatus(grants).status === 'ok';
 }

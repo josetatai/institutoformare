@@ -3,6 +3,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { br, brShort } from '@/lib/dates';
 import { I } from './icons';
 
+const until = (t) => (t.expiresAt ? `Acesso até ${br(t.expiresAt)}` : 'Acesso de administrador');
+
 export function Cover({ t }) {
   if (t.cover) return <img src={t.cover} alt={`Capa: ${t.name}`} loading="lazy" />;
   const [c1, c2, c3] = t.collection.colors;
@@ -30,7 +32,7 @@ function Card({ t, onOpen, onBuy }) {
         {t.status === 'expired' && <><span className="pill exp">Acesso vencido</span><span className="badge lock">{I.lock}</span></>}
       </div>
       <div className="t">{t.vol}: {t.name}</div>
-      {t.status === 'ok' && <>{pct > 0 && <div className="prog"><i style={{ width: pct + '%' }} /></div>}<div className="s">{pct > 0 ? `${pct}% lido · ` : ''}Acesso até {br(t.expiresAt)}</div></>}
+      {t.status === 'ok' && <>{pct > 0 && <div className="prog"><i style={{ width: pct + '%' }} /></div>}<div className="s">{pct > 0 ? `${pct}% lido · ` : ''}{until(t)}</div></>}
       {t.status === 'wait' && <div className="s wait">Liberação programada: {br(t.releaseAt)}</div>}
       {(t.status === 'lock' || t.status === 'expired') && (
         <div className="acts">
@@ -68,7 +70,7 @@ function Detail({ t, onClose, onBuy }) {
     return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', k); };
   }, [onClose]);
   const st = {
-    ok: [I.check, `Liberado · acesso até ${br(t.expiresAt)}`, 'ok'],
+    ok: [I.check, `Liberado · ${until(t).toLowerCase()}`, 'ok'],
     wait: [I.clock, `Liberação programada para ${br(t.releaseAt)}`, 'wait'],
     expired: [I.lock, `Seu acesso venceu em ${br(t.expiredAt)}`, 'exp'],
     lock: [I.lock, 'Você ainda não tem este título', 'lock'],
@@ -124,7 +126,7 @@ function Detail({ t, onClose, onBuy }) {
   );
 }
 
-export default function Library({ items, firstName }) {
+export default function Library({ items, firstName, isAdmin }) {
   const [open, setOpen] = useState(null);
   const [toast, setToast] = useState('');
   const [menu, setMenu] = useState(false);
@@ -161,7 +163,7 @@ export default function Library({ items, firstName }) {
             <button className="avatar" aria-label="Minha conta" aria-expanded={menu} onClick={() => setMenu(!menu)}>
               <span className="nm">Olá, {firstName}</span><span className="ini">{firstName[0]?.toUpperCase()}</span>
             </button>
-            {menu && <div className="dd"><a href="/conta">Minha conta</a><a href="/sair">Sair</a></div>}
+            {menu && <div className="dd">{isAdmin && <a href="/admin">Painel administrativo</a>}<a href="/conta">Minha conta</a><a href="/sair">Sair</a></div>}
           </div>
         </div>
       </header>
@@ -176,7 +178,7 @@ export default function Library({ items, firstName }) {
               {hero.description && <p>{hero.description}</p>}
               {hero.status === 'ok' && <>
                 {heroPct > 0 && <div className="prog"><i style={{ width: heroPct + '%' }} /></div>}
-                <div className="meta">{hero.progressPage ? `Página ${hero.progressPage} de ${hero.pageCount} · ${heroPct}% lido · ` : ''}acesso até {br(hero.expiresAt)}</div>
+                <div className="meta">{hero.progressPage ? `Página ${hero.progressPage} de ${hero.pageCount} · ${heroPct}% lido · ` : ''}{until(hero).toLowerCase()}</div>
               </>}
               <div className="btns">
                 {hero.status === 'ok'

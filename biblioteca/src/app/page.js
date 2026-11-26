@@ -7,5 +7,5 @@ export const dynamic = 'force-dynamic';
 export default async function Home() {
   const user = await requireUser();
   const items = toClient(await catalogFor(user.id));
-  return <Library items={items} firstName={firstName(user)} />;
+  return <Library items={items} firstName={firstName(user)} isAdmin={!!user.is_admin} />;
 }

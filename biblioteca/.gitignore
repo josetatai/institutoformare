@@ -4,3 +4,4 @@ node_modules/
 .env.local
 storage/*
 !storage/.gitkeep
+public/pdf.worker.min.mjs

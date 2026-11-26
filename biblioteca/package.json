@@ -4,18 +4,24 @@
   "private": true,
   "description": "Biblioteca de e-books do Instituto Formare: leitura em flipbook, anexos e acesso integrado à Kiwify.",
   "scripts": {
-    "dev": "next dev",
+    "dev": "npm run worker && next dev",
+    "worker": "cp node_modules/pdfjs-dist/build/pdf.worker.min.mjs public/pdf.worker.min.mjs",
+    "prebuild": "npm run worker",
     "build": "next build",
     "start": "next start -p ${PORT:-3000}",
     "db:migrate": "node scripts/migrate.mjs",
-    "db:catalogo": "node scripts/seed-catalogo.mjs"
+    "db:catalogo": "node scripts/seed-catalogo.mjs",
+    "admin:criar": "node scripts/criar-admin.mjs"
   },
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "mysql2": "^3.14.0",
     "next": "^15.5.0",
     "nodemailer": "^6.10.0",
+    "pdfjs-dist": "^5.7.284",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   }
