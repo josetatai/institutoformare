@@ -1,6 +1,6 @@
 import { q } from '@/lib/db';
 import { br } from '@/lib/dates';
-import { ActionForm } from '@/components/admin/AdminClient';
+import { ActionForm, CopyButton } from '@/components/admin/AdminClient';
 import { reprocessAction } from '../actions';
 import { getSettings } from '@/lib/settings';
 import { signatureReport } from '@/lib/kiwify';
@@ -28,7 +28,7 @@ export default async function Avisos() {
             <td>{r.id}</td><td>{br(r.received_at)}</td><td>{KIND[r.event_kind] || r.event_kind}<br /><small className="adm-help">{r.event_raw_type}</small></td>
             <td>{r.order_id}</td><td>{r.email}</td>
             <td>
-              {r.raw_body && <details className="adm-help"><summary style={{ cursor: 'pointer' }}>ver dados</summary><pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all', maxHeight: 360, overflow: 'auto', fontSize: 12 }}>{pretty(r.raw_body)}</pre></details>}
+              {r.raw_body && <details className="adm-help"><summary style={{ cursor: 'pointer' }}>ver dados</summary><CopyButton text={pretty(r.raw_body)} /><pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all', maxHeight: 360, overflow: 'auto', fontSize: 12 }}>{pretty(r.raw_body)}</pre></details>}
               {!r.signature_ok ? <><span className="adm-warn">Assinatura inválida</span>{r.raw_body && <><br /><small className="adm-help">{signatureReport(r.raw_body, r.sig_received, token)}</small></>}</> : r.processed_at ? 'Processado' : <span className="adm-warn">Pendente: {r.error}</span>}</td>
           </tr>
         ))}</tbody>

@@ -129,3 +129,18 @@ export function AttachmentUpload({ titleId }) {
     </form>
   );
 }
+
+export function CopyButton({ text, label = 'Copiar dados' }) {
+  const [done, setDone] = useState(false);
+  const mark = () => { setDone(true); setTimeout(() => setDone(false), 2500); };
+  const onClick = async () => {
+    try { await navigator.clipboard.writeText(text); mark(); }
+    catch {
+      const t = document.createElement('textarea');
+      t.value = text; document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); mark(); } catch { /* sem permissão */ }
+      t.remove();
+    }
+  };
+  return <button type="button" className="btn sec" onClick={onClick} style={{ margin: '8px 0' }}>{done ? 'Copiado! Agora cole aqui no chat' : label}</button>;
+}
