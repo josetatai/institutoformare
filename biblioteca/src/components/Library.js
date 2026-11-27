@@ -45,17 +45,11 @@ function Card({ t, onOpen, onBuy }) {
 }
 
 function Shelf({ title, extra, items, onOpen, onBuy }) {
-  const tr = useRef(null);
   if (!items.length) return null;
-  const by = (d) => tr.current?.scrollBy({ left: d * tr.current.clientWidth * 0.8, behavior: 'smooth' });
   return (
     <section className="shelf">
       <h2>{title}{extra}</h2>
-      <div className="row">
-        <button className="arrow l" aria-label="Voltar" onClick={() => by(-1)}>{I.left}</button>
-        <div className="track" ref={tr}>{items.map((t) => <Card key={t.id} t={t} onOpen={onOpen} onBuy={onBuy} />)}</div>
-        <button className="arrow r" aria-label="Avançar" onClick={() => by(1)}>{I.right}</button>
-      </div>
+      <div className="track">{items.map((t) => <Card key={t.id} t={t} onOpen={onOpen} onBuy={onBuy} />)}</div>
     </section>
   );
 }
