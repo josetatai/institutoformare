@@ -63,7 +63,7 @@ export async function catalogFor(userId) {
     return {
       id: t.id, slug: t.slug, vol: t.vol_label, name: t.name, description: t.description,
       includes: parse(t.includes_json), toc: parse(t.toc_json),
-      cover: t.cover_path, pageCount: t.page_count,
+      cover: t.cover_path, pageCount: t.page_count, pdfAvailable: !!(t.pdf_file && t.pdf_enabled),
       collection: { slug: t.col_slug, name: t.col_name, isNew: !!t.col_new, colors: [t.color1, t.color2, t.color3] },
       checkoutUrl: t.checkout_url,
       status: st.status, expiresAt: st.expiresAt || null, releaseAt: st.releaseAt || null, expiredAt: st.expiredAt || null,

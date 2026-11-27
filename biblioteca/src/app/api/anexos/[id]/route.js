@@ -23,7 +23,7 @@ export async function GET(req, { params }) {
     return new Response(buf, {
       headers: {
         'Content-Type': att.mime,
-        'Content-Disposition': `attachment; filename*=UTF-8''${encodeURIComponent(att.file_name)}`,
+        'Content-Disposition': `attachment; filename="${att.file_name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^\x20-\x7E]/g, '').replace(/"/g, '')}"; filename*=UTF-8''${encodeURIComponent(att.file_name)}`,
         'Cache-Control': 'private, no-store',
       },
     });

@@ -27,6 +27,7 @@ export default async function EditTitle({ params }) {
         <section className="adm-box">
           <h2>Livro (flipbook)</h2>
           <p>{t.page_count ? <>{t.page_count} páginas publicadas. <a href={`/ler/${t.slug}`} target="_blank">Abrir no leitor</a></> : 'Nenhum PDF enviado ainda.'}</p>
+          <p className="adm-help" style={{ margin: '4px 0 10px' }}>{t.pdf_file ? 'PDF original guardado: o leitor pode baixar o PDF com marca d\'água (e-mail + código).' : 'PDF para download: ainda não enviado. Envie o PDF abaixo e ele também fica disponível para baixar.'}</p>
           <PdfUpload titleId={t.id} pageCount={t.page_count} hasCover={!!t.cover_path} />
           <h2 style={{ marginTop: 24 }}>Vendido em</h2>
           {sold.length ? <ul className="adm-list">{sold.map((s, i) => <li key={i}>{s.name}{s.release_days ? ` · libera ${s.release_days} dia(s) após a compra` : ''}</li>)}</ul>
@@ -52,6 +53,7 @@ export default async function EditTitle({ params }) {
             <div className="fld"><label htmlFor="buy">Botão “Adquirir” abre o checkout de</label><select id="buy" name="buy_product_id" defaultValue={t.buy_product_id || ''}><option value="">— nenhum —</option>{prods.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}</select></div>
             <div className="fld"><label htmlFor="sort">Ordem na fileira</label><input id="sort" name="sort" type="number" defaultValue={t.sort} /></div>
             <div className="fld"><label className="adm-check"><input type="checkbox" name="published" defaultChecked={!!t.published} /> Publicado (aparece na biblioteca)</label></div>
+            <div className="fld"><label className="adm-check"><input type="checkbox" name="pdf_enabled" defaultChecked={t.pdf_enabled === undefined || t.pdf_enabled === null ? true : !!t.pdf_enabled} /> Mostrar o botão "Baixar PDF" (marca d'água com e-mail + código)</label></div>
           </div>
         </ActionForm>
       </section>

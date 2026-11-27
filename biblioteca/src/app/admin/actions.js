@@ -30,9 +30,10 @@ export async function saveTitle(_prev, form) {
     form.get('buy_product_id') ? int(form.get('buy_product_id')) : null,
     int(form.get('sort')),
     form.get('published') ? 1 : 0,
+    form.get('pdf_enabled') ? 1 : 0,
   ];
   if (!data[0] || !data[1]) return { error: 'Preencha o rótulo (ex.: Cartilha Vol. 1) e o nome.' };
-  await q(`UPDATE titles SET vol_label=?, name=?, description=?, includes_json=?, toc_json=?, collection_id=?, buy_product_id=?, sort=?, published=? WHERE id=?`, [...data, id]);
+  await q(`UPDATE titles SET vol_label=?, name=?, description=?, includes_json=?, toc_json=?, collection_id=?, buy_product_id=?, sort=?, published=?, pdf_enabled=? WHERE id=?`, [...data, id]);
   revalidatePath('/admin/titulos');
   return { ok: 'Título salvo.' };
 }

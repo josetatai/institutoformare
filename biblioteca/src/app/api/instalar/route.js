@@ -24,7 +24,7 @@ export async function POST(req) {
   if (!token || got.length !== token.length || !crypto.timingSafeEqual(Buffer.from(got), Buffer.from(token))) {
     return Response.json({ error: 'não autorizado' }, { status: 403 });
   }
-  const { adminEmail, adminName, extract } = await req.json().catch(() => ({}));
+  const { adminEmail, adminName, extract, ocultarTodos } = await req.json().catch(() => ({}));
   const log = [];
   // Arquivos (livros, capas, anexos) enviados como .tar.gz para public_html: extrai para STORAGE_DIR e apaga o pacote.
   if (extract) {
@@ -53,6 +53,8 @@ export async function POST(req) {
       ['webhook_events', 'sig_received', 'VARCHAR(100) NULL'],
       ['products', 'kiwify_price_cents', 'INT NULL'],
       ['products', 'auto_release', 'TINYINT(1) NOT NULL DEFAULT 0'],
+      ['titles', 'pdf_file', 'VARCHAR(255) NULL'],
+      ['titles', 'pdf_enabled', 'TINYINT(1) NOT NULL DEFAULT 1'],
     ]) {
       const [[has]] = await db.query('SELECT COUNT(*) AS n FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = ? AND column_name = ?', [table, col]);
       if (!has.n) { await db.query(`ALTER TABLE ${table} ADD COLUMN ${col} ${ddl}`); log.push(`coluna ${table}.${col} criada`); }
@@ -60,6 +62,7 @@ export async function POST(req) {
     // ajuste dos dados já carregados: upsell do Servidor 4.0 (R$ 67) identificado pelo valor
     const [pr] = await db.query("UPDATE products SET kiwify_price_cents = 6700 WHERE kiwify_product_id = 'ade05fe0-d7ed-11f1-94de-a55929c22af7' AND kiwify_offer_id = 'c26eba88-8376-4199-8e43-2bf0d8bea393' AND kiwify_price_cents IS NULL");
     if (pr.affectedRows) log.push('upsell do Servidor 4.0 ligado ao valor R$ 67');
+    if (ocultarTodos) { const [h] = await db.query('UPDATE titles SET published = 0 WHERE published = 1'); log.push(`${h.affectedRows} título(s) ocultado(s); nada foi apagado`); }
     log.push('tabelas ok');
     const [[{ n }]] = await db.query('SELECT COUNT(*) AS n FROM titles');
     if (n === 0) {

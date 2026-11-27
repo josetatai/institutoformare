@@ -28,6 +28,7 @@ export default async function Conta() {
             </table>
           </div>
         ) : <p className="empty">Nenhum título na sua conta ainda.</p>}
+        <p className="adm-help">Os livros e os PDFs desta biblioteca são marcados com o seu e-mail e um código de licença, para proteger o conteúdo contra cópia e compartilhamento.</p>
         <h2 style={{ fontFamily: 'var(--display)', fontSize: 19 }}>Trocar senha</h2>
         <div className="box"><ChangePasswordForm /></div>
       </main>

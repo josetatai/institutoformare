@@ -6,7 +6,7 @@ import { I } from './icons';
  * Leitor flipbook. Páginas são imagens servidas por /api/paginas/<slug>/<n>,
  * só para quem tem acesso. No computador mostra duas páginas; no celular, uma.
  */
-export default function Reader({ slug, title, pageCount, startPage, email }) {
+export default function Reader({ slug, title, pageCount, startPage, email, code }) {
   const bookRef = useRef(null);
   const stageRef = useRef(null);
   const S = useRef({ i: Math.max(0, startPage - 1), busy: false, zoom: 1, pw: 0, ph: 0 });
@@ -21,7 +21,7 @@ export default function Reader({ slug, title, pageCount, startPage, email }) {
     const n = pageCount;
     const spread = () => window.innerWidth >= 900;
     const src = (i) => `/api/paginas/${encodeURIComponent(slug)}/${i + 1}`;
-    const wmText = `Licenciado para ${email}`;
+    const wmText = `${email} · ${code}`;
 
     const pageEl = (i) => {
       const d = document.createElement('div');
@@ -32,7 +32,7 @@ export default function Reader({ slug, title, pageCount, startPage, email }) {
       d.appendChild(img);
       const wm = document.createElement('div');
       wm.className = 'wm'; wm.setAttribute('aria-hidden', 'true');
-      for (let k = 0; k < 24; k++) { const s = document.createElement('span'); s.textContent = wmText; wm.appendChild(s); }
+      for (let k = 0; k < 2; k++) { const s = document.createElement('span'); s.textContent = wmText; wm.appendChild(s); }
       d.appendChild(wm);
       return d;
     };
@@ -151,7 +151,7 @@ export default function Reader({ slug, title, pageCount, startPage, email }) {
       document.body.style.overflow = '';
       clearTimeout(saveTimer.current);
     };
-  }, [slug, pageCount, email]);
+  }, [slug, pageCount, email, code]);
 
   if (!pageCount) {
     return <div className="login wrap"><div className="lbox"><h2>Livro em preparação</h2><p>As páginas deste título ainda estão sendo carregadas. Volte em breve.</p><a className="btn sec" href="/">Voltar à biblioteca</a></div></div>;

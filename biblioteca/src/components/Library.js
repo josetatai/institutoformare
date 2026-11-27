@@ -83,8 +83,10 @@ function Detail({ t, onClose, onBuy }) {
             <h3>{t.name}</h3>
             <div className={`status ${st[2]}`}>{st[0]} {st[1]}</div>
             {t.description && <p className="desc">{t.description}</p>}
+            {t.status === 'ok' && t.pdfAvailable && <p className="adm-help" style={{ margin: '0 0 12px' }}>O PDF sai marcado com o seu e-mail e um código de licença, para proteger o conteúdo.</p>}
             <div className="btns">
               {t.status === 'ok' && t.pageCount > 0 && <a className="btn pri" href={`/ler/${t.slug}`}>{I.play} {t.progressPage ? 'Continuar lendo' : 'Começar a ler'}</a>}
+              {t.status === 'ok' && t.pdfAvailable && <a className="btn sec" href={`/api/pdf/${t.slug}`}>{I.dl} Baixar PDF</a>}
               {t.status === 'ok' && kitOnly && <button className="btn pri" onClick={() => setTab('anexos')}>{I.dl} Baixar arquivos</button>}
               {t.status === 'ok' && !t.pageCount && !kitOnly && <span className="btn sec" style={{ cursor: 'default' }}>Conteúdo em preparação</span>}
               {t.status === 'wait' && <span className="btn sec" style={{ cursor: 'default', opacity: 0.85 }}>{I.clock} Disponível em {br(t.releaseAt)}</span>}
@@ -193,7 +195,7 @@ export default function Library({ items, firstName, isAdmin }) {
         <Shelf title="Continue lendo" items={reading} onOpen={setOpen} onBuy={buy} />
         <div id="minha" />
         <Shelf title="Minha biblioteca" items={mine} onOpen={setOpen} onBuy={buy} extra={<small>{mine.length} {mine.length === 1 ? 'título' : 'títulos'}</small>} />
-        {!mine.length && <p className="empty">Você ainda não tem títulos liberados. Quando uma compra for aprovada, ela aparece aqui.</p>}
+        {!mine.length && <p className="empty">{isAdmin ? 'Nenhum título publicado. Abra o Painel administrativo, entre em Títulos e marque "Publicado" no que quiser mostrar.' : 'Você ainda não tem títulos liberados. Quando uma compra for aprovada, ela aparece aqui.'}</p>}
         {collections.map((c) => (
           <Shelf key={c.slug} title={c.name} items={c.items} onOpen={setOpen} onBuy={buy} extra={c.isNew ? <> <span className="tag">Nova coleção</span></> : null} />
         ))}

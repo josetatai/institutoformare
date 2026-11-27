@@ -86,7 +86,20 @@ export function PdfUpload({ titleId, pageCount, hasCover }) {
       const r = await fetch('/api/admin/finalizar-pdf', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ titleId, pages: total, coverFromFirst: !hasCover }) });
       const j = await r.json();
       if (!r.ok) throw new Error(j.error);
-      setMsg(`Pronto: ${j.pages} páginas publicadas no flipbook.`);
+      const CH = 3 * 1024 * 1024, parts = Math.ceil(file.size / CH);
+      try {
+        for (let k = 0; k < parts; k++) {
+          setMsg(`Guardando o PDF original para download… ${k + 1} de ${parts}`);
+          let tries = 0;
+          for (;;) {
+            try { await postForm('/api/admin/pdf-original', { titleId, i: k, n: parts, file: new File([file.slice(k * CH, (k + 1) * CH)], 'parte.bin') }); break; }
+            catch (err) { if (++tries >= 3) throw err; await new Promise((r) => setTimeout(r, 1500)); }
+          }
+        }
+        setMsg(`Pronto: ${j.pages} páginas no flipbook e PDF para download guardado.`);
+      } catch (err) {
+        setMsg(`Flipbook publicado (${j.pages} páginas), mas o PDF para download não foi guardado: ${err.message}. Envie o PDF de novo.`);
+      }
       router.refresh();
     } catch (err) {
       setMsg(`Não foi possível concluir: ${err.message}`);
@@ -98,7 +111,7 @@ export function PdfUpload({ titleId, pageCount, hasCover }) {
         {pageCount ? 'Substituir PDF do livro' : 'Enviar PDF do livro'}
         <input type="file" accept="application/pdf" hidden disabled={busy} onChange={onChange} />
       </label>
-      <p className="adm-help">O PDF vira páginas do flipbook aqui no seu navegador. Mantenha a aba aberta até terminar. O arquivo PDF não fica no servidor.</p>
+      <p className="adm-help">O PDF vira o flipbook aqui no seu navegador e o original fica guardado em pasta privada, para o leitor baixar com marca d'água. Mantenha a aba aberta até terminar.</p>
       {busy && <div className="prog" style={{ maxWidth: 360, marginTop: 8 }}><i style={{ width: pct + '%' }} /></div>}
       {msg && <p className="adm-help" role="status">{msg}</p>}
     </div>

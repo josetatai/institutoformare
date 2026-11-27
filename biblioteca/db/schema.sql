@@ -70,6 +70,8 @@ CREATE TABLE IF NOT EXISTS titles (
   buy_product_id INT UNSIGNED NULL,      -- produto que o botão "Adquirir" abre
   sort INT NOT NULL DEFAULT 0,
   published TINYINT(1) NOT NULL DEFAULT 1,
+  pdf_file VARCHAR(255) NULL,            -- PDF original guardado (pasta privada) para o download com marca d'água
+  pdf_enabled TINYINT(1) NOT NULL DEFAULT 1,
   FOREIGN KEY (collection_id) REFERENCES collections(id),
   FOREIGN KEY (buy_product_id) REFERENCES products(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -157,4 +159,15 @@ CREATE TABLE IF NOT EXISTS settings (
   k VARCHAR(60) PRIMARY KEY,
   v TEXT NULL,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Cada PDF baixado sai com e-mail + código; aqui fica o registro de quem recebeu qual código
+CREATE TABLE IF NOT EXISTS pdf_downloads (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED NOT NULL,
+  title_id INT UNSIGNED NOT NULL,
+  code VARCHAR(20) NOT NULL,
+  ip VARCHAR(64) NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX (user_id), INDEX (title_id), INDEX (code)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
