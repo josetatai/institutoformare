@@ -52,6 +52,7 @@ export async function POST(req) {
       ['webhook_events', 'raw_body', 'MEDIUMTEXT NULL'],
       ['webhook_events', 'sig_received', 'VARCHAR(100) NULL'],
       ['products', 'kiwify_price_cents', 'INT NULL'],
+      ['products', 'auto_release', 'TINYINT(1) NOT NULL DEFAULT 0'],
     ]) {
       const [[has]] = await db.query('SELECT COUNT(*) AS n FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = ? AND column_name = ?', [table, col]);
       if (!has.n) { await db.query(`ALTER TABLE ${table} ADD COLUMN ${col} ${ddl}`); log.push(`coluna ${table}.${col} criada`); }

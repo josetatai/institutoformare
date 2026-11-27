@@ -29,6 +29,8 @@ export async function applyEvent(ev, { sendEmail = true } = {}) {
     (ev.priceCents && (await one("SELECT * FROM products WHERE kiwify_product_id = ? AND kiwify_price_cents = ?", [ev.productId, ev.priceCents]))) ||
     (await one("SELECT * FROM products WHERE kiwify_product_id = ? AND kiwify_offer_id = '' AND kiwify_price_cents IS NULL", [ev.productId]));
   if (!product) return { ok: false, note: `produto Kiwify ${ev.productId} ainda não ligado a títulos` };
+  // migração aos poucos: só vira acesso na biblioteca o produto com a liberação automática ligada
+  if (!product.auto_release) return { ok: false, note: `liberação automática desligada para ${product.name} (ligue em Produtos Kiwify quando for migrar)` };
   const items = await q('SELECT title_id, release_days FROM product_titles WHERE product_id = ?', [product.id]);
   if (!items.length) return { ok: false, note: `produto ${product.name} sem títulos ligados` };
 

@@ -74,8 +74,8 @@ export async function saveProduct(_prev, form) {
   const id = int(form.get('id'));
   await tx(async (c) => {
     const reais = parseFloat(String(form.get('price') || '').replace(',', '.'));
-    await c.q('UPDATE products SET name = ?, checkout_url = ?, access_days = ?, kiwify_price_cents = ? WHERE id = ?',
-      [String(form.get('name') || '').trim(), String(form.get('checkout_url') || '').trim() || null, Math.max(1, int(form.get('access_days'), 365)), Number.isFinite(reais) && reais > 0 ? Math.round(reais * 100) : null, id]);
+    await c.q('UPDATE products SET name = ?, checkout_url = ?, access_days = ?, kiwify_price_cents = ?, auto_release = ? WHERE id = ?',
+      [String(form.get('name') || '').trim(), String(form.get('checkout_url') || '').trim() || null, Math.max(1, int(form.get('access_days'), 365)), Number.isFinite(reais) && reais > 0 ? Math.round(reais * 100) : null, form.get('auto_release') ? 1 : 0, id]);
     await c.q('DELETE FROM product_titles WHERE product_id = ?', [id]);
     for (const tid of form.getAll('title')) {
       await c.q('INSERT INTO product_titles (product_id, title_id, release_days) VALUES (?, ?, ?)', [id, int(tid), Math.max(0, int(form.get(`days_${tid}`)))]);

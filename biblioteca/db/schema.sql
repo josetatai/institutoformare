@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS products (
   name VARCHAR(255) NOT NULL,
   checkout_url VARCHAR(500) NULL,
   access_days INT NOT NULL DEFAULT 365,
+  auto_release TINYINT(1) NOT NULL DEFAULT 0,          -- 1 = compras deste produto entram sozinhas na biblioteca (e o cliente recebe e-mail)
   kiwify_price_cents INT NULL,                         -- identifica a oferta pelo valor pago, quando a Kiwify não manda a oferta
   UNIQUE KEY uq_prod_offer (kiwify_product_id, kiwify_offer_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

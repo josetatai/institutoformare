@@ -14,7 +14,7 @@ export default async function Produtos() {
         const mine = links.filter((l) => l.product_id === p.id);
         return (
           <details key={p.id} className="adm-box adm-prod">
-            <summary><b>{p.name}</b> <span className="adm-help">· libera {mine.length} título(s) · acesso de {p.access_days} dias{p.checkout_url ? '' : ' · sem link de checkout'}</span></summary>
+            <summary><b>{p.name}</b> <span className="adm-help">· libera {mine.length} título(s) · acesso de {p.access_days} dias{p.checkout_url ? '' : ' · sem link de checkout'} · <b style={{ color: p.auto_release ? 'var(--ok)' : 'var(--wait)' }}>{p.auto_release ? 'automático LIGADO' : 'automático desligado'}</b></span></summary>
             <ActionForm action={saveProduct}>
               <input type="hidden" name="id" value={p.id} />
               <div className="adm-grid3">
@@ -23,6 +23,7 @@ export default async function Produtos() {
                 <div className="fld"><label htmlFor={`v${p.id}`}>Valor pago que identifica esta regra (R$, opcional)</label><input id={`v${p.id}`} name="price" defaultValue={p.kiwify_price_cents ? (p.kiwify_price_cents / 100).toFixed(2).replace('.', ',') : ''} placeholder="Ex.: 67,00" /></div>
                 <div className="fld"><label htmlFor={`a${p.id}`}>Dias de acesso</label><input id={`a${p.id}`} name="access_days" type="number" min="1" defaultValue={p.access_days} /></div>
               </div>
+              <label className="adm-check"><input type="checkbox" name="auto_release" defaultChecked={!!p.auto_release} /> Liberação automática: as compras novas deste produto entram na biblioteca e o cliente recebe o acesso por e-mail</label>
               <p className="adm-help">ID na Kiwify: {p.kiwify_product_id}{p.kiwify_offer_id ? ` · só a oferta ${p.kiwify_offer_id}` : p.kiwify_price_cents ? ` · só quando o valor pago for R$ ${(p.kiwify_price_cents / 100).toFixed(2).replace('.', ',')}` : ' · todas as ofertas'}</p>
               <div className="adm-table"><table>
                 <thead><tr><th>Libera</th><th>Título</th><th>Libera em (dias após a compra)</th></tr></thead>
