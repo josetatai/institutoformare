@@ -31,9 +31,11 @@ export async function saveTitle(_prev, form) {
     int(form.get('sort')),
     form.get('published') ? 1 : 0,
     form.get('pdf_enabled') ? 1 : 0,
+    Math.max(0, int(form.get('sample_pages'))),
+    form.get('coming_soon') ? 1 : 0,
   ];
   if (!data[0] || !data[1]) return { error: 'Preencha o rótulo (ex.: Cartilha Vol. 1) e o nome.' };
-  await q(`UPDATE titles SET vol_label=?, name=?, description=?, includes_json=?, toc_json=?, collection_id=?, buy_product_id=?, sort=?, published=?, pdf_enabled=? WHERE id=?`, [...data, id]);
+  await q(`UPDATE titles SET vol_label=?, name=?, description=?, includes_json=?, toc_json=?, collection_id=?, buy_product_id=?, sort=?, published=?, pdf_enabled=?, sample_pages=?, coming_soon=? WHERE id=?`, [...data, id]);
   revalidatePath('/admin/titulos');
   return { ok: 'Título salvo.' };
 }
@@ -185,4 +187,21 @@ export async function sendTestEmail(_prev, form) {
   const { sendTest } = await import('@/lib/mail');
   try { await sendTest(String(form.get('to') || u.email)); return { ok: `E-mail de teste enviado para ${form.get('to') || u.email}. Confira a caixa de entrada e o spam.` }; }
   catch (e) { return { error: `Não foi possível enviar: ${e.message}` }; }
+}
+
+/** Envia o e-mail de lançamento a quem pediu "Avise-me" (só quem ainda não foi avisado). */
+export async function notifyInterested(_prev, form) {
+  await requireAdmin();
+  const { sendLaunch } = await import('@/lib/mail');
+  const t = await one('SELECT id, vol_label, name, published, coming_soon FROM titles WHERE id = ?', [int(form.get('title_id'))]);
+  if (!t) return { error: 'Título não encontrado.' };
+  if (!t.published || t.coming_soon) return { error: 'Publique o título e desmarque "Próximo lançamento" antes de avisar.' };
+  const rows = await q('SELECT i.id, u.email, u.name FROM interests i JOIN users u ON u.id = i.user_id WHERE i.title_id = ? AND i.notified_at IS NULL', [t.id]);
+  let ok = 0, fail = 0;
+  for (const r of rows) {
+    try { await sendLaunch({ to: r.email, name: r.name, title: `${t.vol_label}: ${t.name}` }); await q('UPDATE interests SET notified_at = UTC_TIMESTAMP() WHERE id = ?', [r.id]); ok++; }
+    catch { fail++; }
+  }
+  revalidatePath(`/admin/titulos/${t.id}`);
+  return { ok: `Aviso enviado para ${ok} pessoa(s).${fail ? ` ${fail} falharam (tente de novo).` : ''}` };
 }

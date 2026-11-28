@@ -72,6 +72,8 @@ CREATE TABLE IF NOT EXISTS titles (
   published TINYINT(1) NOT NULL DEFAULT 1,
   pdf_file VARCHAR(255) NULL,            -- PDF original guardado (pasta privada) para o download com marca d'água
   pdf_enabled TINYINT(1) NOT NULL DEFAULT 1,
+  sample_pages INT NOT NULL DEFAULT 0,   -- primeiras páginas que qualquer leitor logado pode folhear antes de comprar
+  coming_soon TINYINT(1) NOT NULL DEFAULT 0, -- 1 = aparece em 'Próximos lançamentos' (sem venda), com 'Avise-me'
   FOREIGN KEY (collection_id) REFERENCES collections(id),
   FOREIGN KEY (buy_product_id) REFERENCES products(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -170,4 +172,19 @@ CREATE TABLE IF NOT EXISTS pdf_downloads (
   ip VARCHAR(64) NULL,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   INDEX (user_id), INDEX (title_id), INDEX (code)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Quem pediu para ser avisado no lançamento de um título (com o texto de consentimento aceito)
+CREATE TABLE IF NOT EXISTS interests (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED NOT NULL,
+  title_id INT UNSIGNED NOT NULL,
+  consent_text VARCHAR(500) NOT NULL,
+  ip VARCHAR(64) NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  notified_at DATETIME NULL,
+  UNIQUE KEY uq_interest (user_id, title_id),
+  INDEX (title_id),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (title_id) REFERENCES titles(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

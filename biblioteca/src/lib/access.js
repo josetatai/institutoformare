@@ -24,10 +24,10 @@ const max = (a) => new Date(Math.max(...a.map((d) => +new Date(d))));
 const min = (a) => new Date(Math.min(...a.map((d) => +new Date(d))));
 
 /** Catálogo completo com a situação de cada título para o usuário. */
-export async function catalogFor(userId) {
+export async function catalogFor(userId, { asCustomer = false } = {}) {
   const now = new Date();
   // administrador vê e lê tudo, para conferir o conteúdo
-  const isAdmin = !!(await q('SELECT is_admin FROM users WHERE id = ?', [userId]))[0]?.is_admin;
+  const isAdmin = !asCustomer && !!(await q('SELECT is_admin FROM users WHERE id = ?', [userId]))[0]?.is_admin;
   const titles = await q(
     `SELECT t.*, c.slug AS col_slug, c.name AS col_name, c.sort AS col_sort, c.is_new AS col_new,
             c.color1, c.color2, c.color3, p.checkout_url
@@ -40,9 +40,12 @@ export async function catalogFor(userId) {
   const grants = await q('SELECT * FROM grants WHERE user_id = ?', [userId]);
   const progress = await q('SELECT title_id, page, updated_at FROM reading_progress WHERE user_id = ?', [userId]);
   const atts = await q('SELECT * FROM attachments ORDER BY sort, id');
+  const mine = new Set((await q('SELECT title_id FROM interests WHERE user_id = ?', [userId])).map((r) => r.title_id));
 
   return titles.map((t) => {
-    const st = isAdmin
+    const st = t.coming_soon
+      ? { status: 'soon' }
+      : isAdmin
       ? { status: 'ok', expiresAt: null, grants: [{ release_at: now, starts_at: new Date(0) }] }
       : titleStatus(grants.filter((g) => g.title_id === t.id), now);
     const pr = progress.find((p) => p.title_id === t.id);
@@ -64,6 +67,7 @@ export async function catalogFor(userId) {
       id: t.id, slug: t.slug, vol: t.vol_label, name: t.name, description: t.description,
       includes: parse(t.includes_json), toc: parse(t.toc_json),
       cover: t.cover_path, pageCount: t.page_count, pdfAvailable: !!(t.pdf_file && t.pdf_enabled),
+      samplePages: Math.min(Number(t.sample_pages) || 0, Number(t.page_count) || 0), interested: mine.has(t.id),
       collection: { slug: t.col_slug, name: t.col_name, isNew: !!t.col_new, colors: [t.color1, t.color2, t.color3] },
       checkoutUrl: t.checkout_url,
       status: st.status, expiresAt: st.expiresAt || null, releaseAt: st.releaseAt || null, expiredAt: st.expiredAt || null,

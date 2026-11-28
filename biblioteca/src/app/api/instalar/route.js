@@ -55,6 +55,8 @@ export async function POST(req) {
       ['products', 'auto_release', 'TINYINT(1) NOT NULL DEFAULT 0'],
       ['titles', 'pdf_file', 'VARCHAR(255) NULL'],
       ['titles', 'pdf_enabled', 'TINYINT(1) NOT NULL DEFAULT 1'],
+      ['titles', 'sample_pages', 'INT NOT NULL DEFAULT 0'],
+      ['titles', 'coming_soon', 'TINYINT(1) NOT NULL DEFAULT 0'],
     ]) {
       const [[has]] = await db.query('SELECT COUNT(*) AS n FROM information_schema.columns WHERE table_schema = DATABASE() AND table_name = ? AND column_name = ?', [table, col]);
       if (!has.n) { await db.query(`ALTER TABLE ${table} ADD COLUMN ${col} ${ddl}`); log.push(`coluna ${table}.${col} criada`); }

@@ -73,6 +73,19 @@ ${button(link, 'Abrir minha biblioteca')}`);
   await send(to, 'Novo conteúdo na sua Biblioteca Formare', html, `Sua compra de ${productName} já está na biblioteca: ${link}`);
 }
 
+/** Aviso de lançamento para quem pediu "Avise-me" (consentimento registrado). */
+export async function sendLaunch({ to, name, title }) {
+  await prep();
+  const link = `${APP()}/entrar`;
+  const html = layout('Já está disponível na sua biblioteca', `
+<p>Olá${name ? ', ' + esc(name.split(' ')[0]) : ''}!</p>
+<p>Você pediu para ser avisado quando este título fosse lançado, e ele já está disponível:</p>
+<p style="font-size:17px"><b>${esc(title)}</b></p>
+${button(link, 'Conhecer na biblioteca')}
+<p style="font-size:13px;color:#566074">Você recebeu este e-mail porque pediu aviso no lançamento deste título. Se não quiser mais receber avisos, responda este e-mail escrevendo SAIR.</p>`);
+  await send(to, `Já está disponível: ${title}`, html, `Você pediu aviso no lançamento e já está disponível: ${title}\nConheça na biblioteca: ${link}\nPara não receber mais avisos, responda este e-mail com SAIR.`);
+}
+
 export async function sendPasswordReset({ to, token }) {
   await prep();
   const link = `${APP()}/redefinir?token=${encodeURIComponent(token)}`;

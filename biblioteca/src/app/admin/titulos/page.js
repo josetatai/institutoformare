@@ -3,7 +3,7 @@ import { ActionForm } from '@/components/admin/AdminClient';
 import { createTitle } from '../actions';
 
 export default async function Titulos() {
-  const rows = await q(`SELECT t.*, c.name AS col, (SELECT COUNT(*) FROM attachments a WHERE a.title_id = t.id) AS n_anexos
+  const rows = await q(`SELECT t.*, c.name AS col, (SELECT COUNT(*) FROM attachments a WHERE a.title_id = t.id) AS n_anexos, (SELECT COUNT(*) FROM interests i WHERE i.title_id = t.id) AS n_int
                           FROM titles t JOIN collections c ON c.id = t.collection_id ORDER BY c.sort, t.sort, t.id`);
   const cols = await q('SELECT id, name FROM collections ORDER BY sort');
   return (
@@ -12,7 +12,7 @@ export default async function Titulos() {
       <p className="adm-help">Cada título é um livro, cartilha ou apostila que aparece na biblioteca. Clique para editar textos, capa, PDF e anexos.</p>
       <div className="adm-table">
         <table>
-          <thead><tr><th>Capa</th><th>Título</th><th>Coleção</th><th>Páginas</th><th>Anexos</th><th>Situação</th></tr></thead>
+          <thead><tr><th>Capa</th><th>Título</th><th>Coleção</th><th>Páginas</th><th>Anexos</th><th>Interessados</th><th>Situação</th></tr></thead>
           <tbody>
             {rows.map((t) => (
               <tr key={t.id}>
@@ -21,7 +21,8 @@ export default async function Titulos() {
                 <td>{t.col}</td>
                 <td>{t.page_count || <span className="adm-warn">sem PDF</span>}</td>
                 <td>{t.n_anexos}</td>
-                <td>{t.published ? 'Publicado' : <span className="adm-warn">Oculto</span>}</td>
+                <td>{t.n_int || '—'}</td>
+                <td>{!t.published ? <span className="adm-warn">Oculto</span> : t.coming_soon ? 'Em breve' : 'Publicado'}</td>
               </tr>
             ))}
           </tbody>

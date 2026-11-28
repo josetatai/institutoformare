@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { q, one } from '@/lib/db';
 import { ActionForm, CoverUpload, PdfUpload, AttachmentUpload } from '@/components/admin/AdminClient';
-import { saveTitle, updateAttachment, deleteAttachment } from '../../actions';
+import { saveTitle, updateAttachment, deleteAttachment, notifyInterested } from '../../actions';
 
 const arr = (v) => (v == null ? [] : typeof v === 'string' ? JSON.parse(v) : v);
 const size = (b) => (b > 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB');
@@ -13,6 +13,7 @@ export default async function EditTitle({ params }) {
   const cols = await q('SELECT id, name FROM collections ORDER BY sort');
   const prods = await q('SELECT id, name FROM products ORDER BY name');
   const atts = await q('SELECT * FROM attachments WHERE title_id = ? ORDER BY sort, id', [t.id]);
+  const ints = (await q('SELECT COUNT(*) AS total, SUM(notified_at IS NULL) AS pending FROM interests WHERE title_id = ?', [t.id]))[0] || {};
   const sold = await q('SELECT p.name, pt.release_days FROM product_titles pt JOIN products p ON p.id = pt.product_id WHERE pt.title_id = ?', [t.id]);
   return (
     <>
@@ -29,6 +30,13 @@ export default async function EditTitle({ params }) {
           <p>{t.page_count ? <>{t.page_count} páginas publicadas. <a href={`/ler/${t.slug}`} target="_blank">Abrir no leitor</a></> : 'Nenhum PDF enviado ainda.'}</p>
           <p className="adm-help" style={{ margin: '4px 0 10px' }}>{t.pdf_file ? 'PDF original guardado: o leitor pode baixar o PDF com marca d\'água (e-mail + código).' : 'PDF para download: ainda não enviado. Envie o PDF abaixo e ele também fica disponível para baixar.'}</p>
           <PdfUpload titleId={t.id} pageCount={t.page_count} hasCover={!!t.cover_path} />
+          <h2 style={{ marginTop: 24 }}>Interessados</h2>
+          <p className="adm-help">{Number(ints.total) || 0} pessoa(s) pediram aviso no lançamento; {Number(ints.pending) || 0} ainda não foram avisadas. Para avisar: desmarque "Próximo lançamento", publique o título e use o botão.</p>
+          {!t.coming_soon && !!t.published && Number(ints.pending) > 0 && (
+            <ActionForm action={notifyInterested} submit={`Avisar ${Number(ints.pending)} interessado(s) por e-mail`} confirmText={`Enviar o e-mail de lançamento para ${Number(ints.pending)} pessoa(s)?`}>
+              <input type="hidden" name="title_id" value={t.id} />
+            </ActionForm>
+          )}
           <h2 style={{ marginTop: 24 }}>Vendido em</h2>
           {sold.length ? <ul className="adm-list">{sold.map((s, i) => <li key={i}>{s.name}{s.release_days ? ` · libera ${s.release_days} dia(s) após a compra` : ''}</li>)}</ul>
             : <p className="adm-warn">Nenhum produto da Kiwify libera este título. Ligue em “Produtos Kiwify”.</p>}
@@ -54,6 +62,8 @@ export default async function EditTitle({ params }) {
             <div className="fld"><label htmlFor="sort">Ordem na fileira</label><input id="sort" name="sort" type="number" defaultValue={t.sort} /></div>
             <div className="fld"><label className="adm-check"><input type="checkbox" name="published" defaultChecked={!!t.published} /> Publicado (aparece na biblioteca)</label></div>
             <div className="fld"><label className="adm-check"><input type="checkbox" name="pdf_enabled" defaultChecked={t.pdf_enabled === undefined || t.pdf_enabled === null ? true : !!t.pdf_enabled} /> Mostrar o botão "Baixar PDF" (marca d'água com e-mail + código)</label></div>
+            <div className="fld"><label htmlFor="sample">Páginas de amostra (as primeiras, visíveis a quem ainda não comprou)</label><input id="sample" name="sample_pages" type="number" min="0" defaultValue={t.sample_pages || 0} /></div>
+            <div className="fld"><label className="adm-check"><input type="checkbox" name="coming_soon" defaultChecked={!!t.coming_soon} /> Próximo lançamento (aparece em "Próximos lançamentos" com "Avise-me", sem venda)</label></div>
           </div>
         </ActionForm>
       </section>

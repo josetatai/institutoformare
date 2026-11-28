@@ -6,7 +6,7 @@ import { I } from './icons';
  * Leitor flipbook. Páginas são imagens servidas por /api/paginas/<slug>/<n>,
  * só para quem tem acesso. No computador mostra duas páginas; no celular, uma.
  */
-export default function Reader({ slug, title, pageCount, startPage, email, code }) {
+export default function Reader({ slug, title, pageCount, startPage, email, code, sample = false, buyUrl = null }) {
   const bookRef = useRef(null);
   const stageRef = useRef(null);
   const S = useRef({ i: Math.max(0, startPage - 1), busy: false, zoom: 1, pw: 0, ph: 0 });
@@ -20,7 +20,7 @@ export default function Reader({ slug, title, pageCount, startPage, email, code 
     const st = S.current;
     const n = pageCount;
     const spread = () => window.innerWidth >= 900;
-    const src = (i) => `/api/paginas/${encodeURIComponent(slug)}/${i + 1}`;
+    const src = (i) => `/api/${sample ? 'amostra' : 'paginas'}/${encodeURIComponent(slug)}/${i + 1}`;
     const wmText = `${email} · ${code}`;
 
     const pageEl = (i) => {
@@ -45,11 +45,12 @@ export default function Reader({ slug, title, pageCount, startPage, email, code 
       const txt = spread()
         ? s.L < 0 ? 'Página 1' : s.R >= n ? `Página ${s.L + 1}` : `Páginas ${s.L + 1}–${s.R + 1}`
         : `Página ${st.i + 1}`;
-      setLabel(`${txt} de ${n}`);
+      setLabel(`${txt} de ${n}${sample ? ' · amostra' : ''}`);
       setIdx(st.i);
     };
 
     const saveProgress = () => {
+      if (sample) return;
       clearTimeout(saveTimer.current);
       saveTimer.current = setTimeout(() => {
         fetch('/api/progresso', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ slug, page: st.i + 1 }) })
@@ -151,7 +152,7 @@ export default function Reader({ slug, title, pageCount, startPage, email, code 
       document.body.style.overflow = '';
       clearTimeout(saveTimer.current);
     };
-  }, [slug, pageCount, email, code]);
+  }, [slug, pageCount, email, code, sample]);
 
   if (!pageCount) {
     return <div className="login wrap"><div className="lbox"><h2>Livro em preparação</h2><p>As páginas deste título ainda estão sendo carregadas. Volte em breve.</p><a className="btn sec" href="/">Voltar à biblioteca</a></div></div>;
@@ -162,7 +163,8 @@ export default function Reader({ slug, title, pageCount, startPage, email, code 
       <div className="rbar wrap">
         <a className="ib" href="/" aria-label="Fechar leitor">{I.x}</a>
         <div className="ti">{title}</div>
-        <span className="saved">{saved ? 'Página salva' : ''}</span>
+        <span className="saved" style={sample ? { color: 'var(--wait)' } : undefined}>{sample ? 'Amostra' : saved ? 'Página salva' : ''}</span>
+        {sample && buyUrl && <a className="btn buy" href={buyUrl} target="_blank" rel="noopener" style={{ padding: '7px 14px', fontSize: 13.5 }}>Adquirir</a>}
         <button className="ib" aria-label="Diminuir zoom" onClick={() => S.current.zoomBy(-0.2)}>{I.zout}</button>
         <button className="ib" aria-label="Aumentar zoom" onClick={() => S.current.zoomBy(0.2)}>{I.zin}</button>
       </div>
